@@ -11,37 +11,37 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Radio Widget Tests
+"""Multi-Checkbox Widget Tests 
 
 $Id$
 """
 import unittest
 from zope.testing import doctest
 from zope.interface import Interface, implements
-from zope.interface.verify import verifyClass
 from zope.publisher.browser import TestRequest
-from zope.schema import Choice
+from zope.schema import Choice, List
 
 from zope.app.form.interfaces import IInputWidget
-from zope.app.form.browser import RadioWidget
+from zope.app.form.browser import MultiCheckBoxWidget
 from zope.app.form.browser.tests.test_browserwidget import SimpleInputWidgetTest
+from zope.interface.verify import verifyClass
 
-class RadioWidgetTest(SimpleInputWidgetTest):
-    """Documents and tests the radio widget.
-
-        >>> verifyClass(IInputWidget, RadioWidget)
+class MultiCheckBoxWidgetTest(SimpleInputWidgetTest):
+    """Documents and tests the multi checkbox widget.
+        
+        >>> verifyClass(IInputWidget, MultiCheckBoxWidget)
         True
     """
 
-    _FieldFactory = Choice
-    _WidgetFactory = RadioWidget
+    _WidgetFactory = MultiCheckBoxWidget
+    _FieldFactory = List
 
     def setUpContent(self, desc=u'', title=u'Foo Title'):
         class ITestContent(Interface):
             foo = self._FieldFactory(
                     title=title,
                     description=desc,
-                    values=(u'foo', u'bar')
+                    value_type=Choice(values=[u'foo', u'bar'])
                     )
         class TestObject(object):
             implements(ITestContent)
@@ -49,9 +49,10 @@ class RadioWidgetTest(SimpleInputWidgetTest):
         self.content = TestObject()
         field = ITestContent['foo']
         field = field.bind(self.content)
-        request = TestRequest(HTTP_ACCEPT_LANGUAGE='pl')
-        request.form['field.foo'] = u'Foo Value'
-        self._widget = self._WidgetFactory(field, field.vocabulary, request)
+        request = TestRequest(HTTP_ACCEPT_LANGUAGE='pl',
+                              form={'field.foo': u'bar'})
+        self._widget = self._WidgetFactory(field, field.value_type.vocabulary,
+                                           request)
 
     def testProperties(self):
         self.assertEqual(self._widget.cssClass, "")
@@ -60,7 +61,7 @@ class RadioWidgetTest(SimpleInputWidgetTest):
 
 
     def testRenderItem(self):
-        check_list = ('type="radio"', 'id="field.bar.0"',
+        check_list = ('type="checkbox"', 'id="field.bar.',
                       'name="field.bar"', 'value="foo"', 'Foo')
         self.verifyResult(
             self._widget.renderItem(0, 'Foo', 'foo', 'field.bar', None),
@@ -73,51 +74,30 @@ class RadioWidgetTest(SimpleInputWidgetTest):
 
 
     def testRenderItems(self):
-        check_list = ('type="radio"', 'id="field.foo.0"', 'name="field.foo"',
-                      'value="bar"', 'bar', 'value="foo"', 'foo',
-                      'checked="checked"')
-        self.verifyResult('\n'.join(self._widget.renderItems('bar')),
+        check_list = ('type="checkbox"', 'id="field.foo.',
+                      'name="field.foo"', 'value="bar"', 'bar',
+                      'value="foo"', 'foo', 'checked="checked"')
+        self.verifyResult('\n'.join(self._widget.renderItems(['bar'])),
                           check_list)
 
 
     def testRender(self):
-        value = 'bar'
-        self._widget.setRenderedValue(value)
-        check_list = ('type="radio"', 'id="field.foo.0"',
+        check_list = ('type="checkbox"', 'id="field.foo.',
                       'name="field.foo"', 'value="bar"', 'bar',
                       'value="foo"', 'foo', 'checked="checked"')
         self.verifyResult(self._widget(), check_list)
 
-        check_list = ('type="hidden"', 'id="field.foo"',
-                      'name="field.foo"', 'value="bar"')
+        check_list = ('type="hidden"', 'id="field.foo', 'name="field.foo:list"',
+                      'value="bar"')
         self.verifyResult(self._widget.hidden(), check_list)
         check_list = ('style="color: red"',) + check_list
         self._widget.extra = 'style="color: red"'
         self.verifyResult(self._widget.hidden(), check_list)
 
 
-    def testHasInput(self):
-        self._widget.request.form.clear()
-        self.assert_(not self._widget.hasInput())
-        self._widget.request.form['field.foo-empty-marker'] = '1'
-        self.assert_(self._widget.hasInput())
-        self._widget.request.form['field.foo'] = u'Foo Value'
-        self.assert_(self._widget.hasInput())
-        del self._widget.request.form['field.foo-empty-marker']
-        self.assert_(self._widget.hasInput())
-
-
-    def testRenderEmptyMarker(self):
-        self.verifyResult(self._widget(), ('field.foo-empty-marker',))
-        self._widget.setRenderedValue(u'bar')
-        self.verifyResult(self._widget(), ('field.foo-empty-marker',))
-        self._widget.setRenderedValue(u'not a legal value')
-        self.verifyResult(self._widget(), ('field.foo-empty-marker',))
-
-
 def test_suite():
     return unittest.TestSuite((
-        unittest.makeSuite(RadioWidgetTest),
+        unittest.makeSuite(MultiCheckBoxWidgetTest),
         doctest.DocTestSuite(),
         ))
 
