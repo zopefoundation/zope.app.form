@@ -19,13 +19,13 @@ import unittest
 
 from zope.component.eventtesting import getEvents, clearEvents
 from zope.component.testing import PlacelessSetup
-from zope.interface import Interface, implements
+from zope.interface import Interface, implementer
 from zope.location.interfaces import ILocation
 from zope.publisher.browser import TestRequest
 from zope.schema import TextLine, accessors
 from zope.schema.interfaces import ITextLine
 
-from zope.app.testing import ztapi
+import zope.app.form.testing as ztapi
 
 from zope.app.form.browser import TextWidget
 from zope.app.form.browser.editview import EditView
@@ -44,8 +44,9 @@ class EV(EditView):
     schema = I
     object_factories = []
 
+@implementer(I)
 class C(object):
-    implements(I)
+
     foo = u"c foo"
     bar = u"c bar"
     a   = u"c a"
@@ -63,14 +64,15 @@ class IFoo(Interface):
 class IBar(Interface):
     bar = TextLine(title=u"Bar")
 
+@implementer(IFoo)
 class Foo(object):
-    implements(IFoo)
+
     __Security_checker__ = utils.SchemaChecker(IFoo)
 
     foo = u'Foo foo'
-    
+
+@implementer(IFoo)
 class ConformFoo(object):
-    implements(IFoo)
 
     foo = u'Foo foo'
 
@@ -78,9 +80,9 @@ class ConformFoo(object):
         if interface is IBar:
             return OtherFooBarAdapter(self)
 
-            
+@implementer(IBar, ILocation)
 class FooBarAdapter(object):
-    implements(IBar, ILocation)
+
     __used_for__ = IFoo
 
     def __init__(self, context):
@@ -90,9 +92,9 @@ class FooBarAdapter(object):
     def setbar(self, v): self.context.foo = v
 
     bar = property(getbar, setbar)
-    
+
     __Security_checker__ = utils.SchemaChecker(IBar)
-    
+
 class OtherFooBarAdapter(FooBarAdapter):
     pass
 
@@ -198,13 +200,13 @@ class Test(PlacelessSetup, unittest.TestCase):
         self.failIf(getEvents())
 
     def test_setUpWidget_via_conform_adapter(self):
-        
+
         f = ConformFoo()
         request = TestRequest()
         v = BarV(f, request)
-        
-def test_suite():
-    return unittest.makeSuite(Test)
 
-if __name__=='__main__':
+def test_suite():
+    return unittest.defaultTestLoader.loadTestsFromName(__name__)
+
+if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')

@@ -18,23 +18,24 @@ $Id$
 __docformat__ = 'restructuredtext'
 
 from zope.component import getMultiAdapter
-from zope.interface import implements
+from zope.interface import implementer
 from zope.interface.common.mapping import IItemMapping
 from zope.publisher.browser import BrowserView
 
+@implementer(IItemMapping)
 class FormMacros(BrowserView):
-    implements(IItemMapping)
+
 
     macro_pages = (
         'view_macros',
         'widget_macros',
         'addform_macros',
-        )
+    )
     aliases = {
         'view': 'page',
         'dialog': 'page',
         'addingdialog': 'page',
-        }
+    }
 
     def __getitem__(self, key):
         key = self.aliases.get(key, key)

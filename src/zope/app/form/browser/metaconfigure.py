@@ -34,10 +34,11 @@ from zope.formlib.widget import CustomWidgetFactory
 from zope.app.form.browser.i18n import _
 from zope.formlib.interfaces import IInputWidget, IDisplayWidget
 from zope.formlib.interfaces import IWidgetFactory
-from add import AddView, AddViewFactory
-from editview import EditView, EditViewFactory
-from formview import FormView
-from schemadisplay import DisplayView, DisplayViewFactory
+
+from zope.app.form.browser.add import AddView, AddViewFactory
+from zope.app.form.browser.editview import EditView, EditViewFactory
+from zope.app.form.browser.formview import FormView
+from zope.app.form.browser.schemadisplay import DisplayView, DisplayViewFactory
 
 class BaseFormDirective(object):
 
@@ -62,6 +63,20 @@ class BaseFormDirective(object):
         self._context = _context
         for key, value in kwargs.items():
             if not (value is None and hasattr(self, key)):
+                # zope.configuration.fields.MessageID gets the domain
+                # as a byte string But
+                # zope.i18n.zcml.registerTranslations
+                # (<i18n:registerTranslations>) registers
+                # ITranslationDomain objects with strs (what's
+                # returned from the filesystem) And on Python 3, bytes
+                # != str so the utilities can't be found. So we have
+                # to correct this if we want our translations to work.
+                if (bytes is not str
+                    and hasattr(value, 'domain')
+                    and isinstance(value.domain, bytes)):
+                    domain = value.domain.decode('ascii')
+                    factory = zope.i18nmessageid.MessageFactory(domain)
+                    value = factory(str(value), value.default)
                 setattr(self, key, value)
         self._normalize()
         self._widgets = {}
@@ -85,7 +100,7 @@ class BaseFormDirective(object):
             # attribute.  This can be used to override some of the
             # presentational attributes of the widget implementation.
             class_ = self._default_widget_factory
-        
+
         # don't wrap a factory into a factory
         if IWidgetFactory.providedBy(class_):
             factory = class_

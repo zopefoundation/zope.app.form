@@ -21,10 +21,22 @@ import doctest
 from zope.schema.interfaces import ITextLine
 from zope.component import testing
 
-from zope.app.testing import ztapi
+import zope.app.form.testing as ztapi
 
 from zope.app.form.browser import TextWidget
 from zope.formlib.interfaces import IInputWidget
+
+
+from zope.testing import renormalizing
+
+import re
+checker = renormalizing.RENormalizing([
+    (re.compile("u('.*?')"), r"\1"),
+    (re.compile('u(".*?")'), r"\1"),
+    # Python 3 adds module name to exceptions.
+    (re.compile('zope.configuration.xmlconfig.ZopeXMLConfigurationError'), 'ZopeXMLConfigurationError'),
+])
+
 
 def setUp(test):
     testing.setUp()
@@ -33,7 +45,7 @@ def setUp(test):
 
 def test_suite():
     return unittest.TestSuite((
-        doctest.DocFileSuite('../form.txt',
+        doctest.DocFileSuite('../form.rst',
                              setUp=setUp, tearDown=testing.tearDown,
                              optionflags=doctest.NORMALIZE_WHITESPACE),
         ))

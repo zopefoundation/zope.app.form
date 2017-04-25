@@ -99,13 +99,13 @@ class EditView(BrowserView):
                 if changed and self.context is self.adapted:
                     description = Attributes(self.schema, *self.fieldNames)
                     notify(ObjectModifiedEvent(content, description))
-            except WidgetsError, errors:
+            except WidgetsError as errors:
                 self.errors = errors
                 status = _("An error occurred.")
                 transaction.doom()
             else:
                 setUpEditWidgets(self, self.schema, source=self.adapted,
-                                 ignoreStickyValues=True, 
+                                 ignoreStickyValues=True,
                                  names=self.fieldNames)
                 if changed:
                     self.changed()

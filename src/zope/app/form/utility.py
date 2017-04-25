@@ -50,7 +50,7 @@ from zope.formlib.utility import (
     _fieldlist,
     no_value,
     _widgetHasStickyValue)
-    
+
 def setUpEditWidgets(view, schema, source=None, prefix=None,
                      ignoreStickyValues=False, names=None, context=None,
                      degradeInput=False, degradeDisplay=False):
@@ -215,7 +215,7 @@ def getWidgetsData(view, schema, names=None):
             if widget.hasInput():
                 try:
                     result[name] = widget.getInputValue()
-                except InputErrors, error:
+                except InputErrors as error:
                     errors.append(error)
             elif field.required:
                 errors.append(MissingInputError(
@@ -225,4 +225,3 @@ def getWidgetsData(view, schema, names=None):
         raise WidgetsError(errors, widgetsData=result)
 
     return result
-

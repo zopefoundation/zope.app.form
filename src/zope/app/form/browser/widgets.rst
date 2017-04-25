@@ -13,56 +13,60 @@ description
 Simple stuff.
 
 Our Poll product holds an editable list of the `PollOption` instances.
-This is shown in the ``poll.py`` source below::
 
-    from persistent import Persistent
-    from interfaces import IPoll, IPollOption
-    from zope.interface import implements, classImplements
+First the Schemas are defined in the ``interfaces.py`` file below::
 
-    class PollOption(Persistent, object):
-        implements(IPollOption)
+    >>> from zope.interface import Interface
+    >>> from zope.schema import Object, Tuple, TextLine
+    >>> from zope.schema.interfaces import ITextLine
+    >>> from zope.i18nmessageid import MessageFactory
 
-    class Poll(Persistent, object):
-        implements(IPoll)
+    >>> _ = MessageFactory("poll")
 
-        def getResponse(self, option):
-            return self._responses[option]
+    >>> class IPollOption(Interface):
+    ...    label = TextLine(title=u'Label', min_length=1)
+    ...    description = TextLine(title=u'Description', min_length=1)
 
-        def choose(self, option):
-            self._responses[option] += 1
-            self._p_changed = 1
+    >>> class IPoll(Interface):
+    ...    options = Tuple(title=u'Options',
+    ...        value_type=Object(IPollOption, title=u'Poll Option'))
+    ...
+    ...    def getResponse(option): "get the response for an option"
+    ...
+    ...    def choose(option): 'user chooses an option'
 
-        def get_options(self):
-            return self._options
+The implementation is shown in the ``poll.py`` source below::
 
-        def set_options(self, options):
-            self._options = options
-            self._responses = {}
-            for option in self._options:
-                self._responses[option.label] = 0
+    >>> from persistent import Persistent
+    >>> from zope.interface import implementer, classImplements
 
-        options = property(get_options, set_options, None, 'fiddle options')
+    >>> @implementer(IPollOption)
+    ... class PollOption(Persistent, object):
+    ...       pass
 
-And the Schemas are defined in the ``interfaces.py`` file below::
+    >>> @implementer(IPoll)
+    ... class Poll(Persistent, object):
+    ...
+    ...
+    ...  def getResponse(self, option):
+    ...        return self._responses[option]
+    ...
+    ...  def choose(self, option):
+    ...        self._responses[option] += 1
+    ...        self._p_changed = 1
+    ...
+    ...  def get_options(self):
+    ...        return self._options
+    ...
+    ...  def set_options(self, options):
+    ...        self._options = options
+    ...        self._responses = {}
+    ...        for option in self._options:
+    ...            self._responses[option.label] = 0
+    ...
+    ...  options = property(get_options, set_options, None, 'fiddle options')
 
-    from zope.interface import Interface
-    from zope.schema import Object, Tuple, TextLine
-    from zope.schema.interfaces import ITextLine
-    from zope.i18nmessageid import MessageFactory
 
-    _ = MessageFactory("poll")
-
-    class IPollOption(Interface):
-        label = TextLine(title=u'Label', min_length=1)
-        description = TextLine(title=u'Description', min_length=1)
-
-    class IPoll(Interface):
-        options = Tuple(title=u'Options',
-            value_type=Object(IPollOption, title=u'Poll Option'))
-
-        def getResponse(option): "get the response for an option"
-
-        def choose(option): 'user chooses an option'
 
 Note the use of the `Tuple` and `Object` schema fields above.  The
 `Tuple` could optionally have restrictions on the min or max number of
@@ -129,7 +133,7 @@ Tying all this together is the ``configure.zcml``::
     <factory id="zope.app.demo.poll"
              permission="zope.ManageContent" />
 
-    <implements 
+    <implements
         interface="zope.annotation.interfaces.IAttributeAnnotatable"
         />
 
@@ -238,4 +242,3 @@ Finally, we have some additional views...
     </form>
     </div>
     </html>
-

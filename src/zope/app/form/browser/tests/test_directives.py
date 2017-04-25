@@ -16,13 +16,16 @@
 $Id$
 """
 import unittest
-from cStringIO import StringIO
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 from zope import component
 from zope.component.testing import PlacelessSetup
 from zope.configuration.xmlconfig import xmlconfig, XMLConfig
 from zope.traversing.interfaces import TraversalError
-from zope.interface import Interface, implements
+from zope.interface import Interface, implementer
 from zope.publisher.browser import TestRequest
 from zope.schema import TextLine, Int
 
@@ -48,8 +51,9 @@ class Schema(Interface):
 
 class IC(Schema): pass
 
+@implementer(IC)
 class Ob(object):
-    implements(IC)
+    pass
 
 unwrapped_ob = Ob()
 ob = utils.securityWrap(unwrapped_ob, IC)
@@ -60,9 +64,9 @@ class ISomeWidget(Interface):
         default=20,
         required=True)
 
+@implementer(ISomeWidget)
 class SomeWidget(TextWidget):
-    implements(ISomeWidget)
-
+    pass
 
 class Test(PlacelessSetup, unittest.TestCase):
 
@@ -79,7 +83,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         from zope.traversing.interfaces import ITraversable
 
         component.provideAdapter(DefaultTraversable, (None,), ITraversable)
-        
+
     def testAddForm(self):
         self.assertEqual(
             component.queryMultiAdapter((ob, request), name='add.html'),
@@ -300,8 +304,7 @@ class Test(PlacelessSetup, unittest.TestCase):
 
 
 def test_suite():
-    loader=unittest.TestLoader()
-    return loader.loadTestsFromTestCase(Test)
+    return unittest.defaultTestLoader.loadTestsFromName(__name__)
 
-if __name__=='__main__':
+if __name__ == '__main__':
     unittest.TextTestRunner().run(test_suite())
