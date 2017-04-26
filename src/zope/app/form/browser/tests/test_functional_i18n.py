@@ -75,8 +75,9 @@ checker = renormalizing.RENormalizing([
 
 class _FakeResponse(FakeResponse):
     if str is bytes:
-        # py2 has a bug, assuming headers are in unicode already, or
-        # are decodable implicitly to ascii
+        # Up through at least 4.0.0 of zope.app.wsgi, Py2 has a bug,
+        # assuming headers are in unicode already, or are decodable
+        # implicitly to ascii
         def getHeaders(self):
             headers = super(_FakeResponse, self).getHeaders()
             result = []

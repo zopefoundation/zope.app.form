@@ -489,7 +489,7 @@ class TestSetUpWidgets(object):
         for a view:
 
             >>> view = BrowserView(Content(), request)
-            >>> sorted(list(IContent.names()))
+            >>> sorted(IContent.names())
             ['bar', 'foo']
             >>> setUpWidgets(view, IContent, IWidget, names=('bar',))
             >>> hasattr(view, 'foo_widget')

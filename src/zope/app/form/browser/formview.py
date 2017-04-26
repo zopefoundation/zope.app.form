@@ -44,7 +44,6 @@ class FormView(EditView):
 
         This method should return a dictionary mapping field names to values.
         """
-        # pragma: no cover
         raise NotImplementedError('Must be implemented by a specific form class')
 
     def setData(self, data):

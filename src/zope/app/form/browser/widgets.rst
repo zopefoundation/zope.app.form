@@ -47,24 +47,23 @@ The implementation is shown in the ``poll.py`` source below::
     >>> @implementer(IPoll)
     ... class Poll(Persistent, object):
     ...
-    ...
-    ...  def getResponse(self, option):
+    ...    def getResponse(self, option):
     ...        return self._responses[option]
     ...
-    ...  def choose(self, option):
+    ...    def choose(self, option):
     ...        self._responses[option] += 1
     ...        self._p_changed = 1
     ...
-    ...  def get_options(self):
+    ...    @property
+    ...    def options(self):
     ...        return self._options
     ...
-    ...  def set_options(self, options):
+    ...    @options.setter
+    ...    def set_options(self, options):
     ...        self._options = options
     ...        self._responses = {}
     ...        for option in self._options:
     ...            self._responses[option.label] = 0
-    ...
-    ...  options = property(get_options, set_options, None, 'fiddle options')
 
 
 

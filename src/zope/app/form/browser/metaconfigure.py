@@ -71,6 +71,7 @@ class BaseFormDirective(object):
                 # returned from the filesystem) And on Python 3, bytes
                 # != str so the utilities can't be found. So we have
                 # to correct this if we want our translations to work.
+                # See https://github.com/zopefoundation/zope.configuration/issues/17
                 if (bytes is not str
                     and hasattr(value, 'domain')
                     and isinstance(value.domain, bytes)):
