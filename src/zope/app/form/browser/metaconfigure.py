@@ -63,21 +63,6 @@ class BaseFormDirective(object):
         self._context = _context
         for key, value in kwargs.items():
             if not (value is None and hasattr(self, key)):
-                # zope.configuration.fields.MessageID gets the domain
-                # as a byte string But
-                # zope.i18n.zcml.registerTranslations
-                # (<i18n:registerTranslations>) registers
-                # ITranslationDomain objects with strs (what's
-                # returned from the filesystem) And on Python 3, bytes
-                # != str so the utilities can't be found. So we have
-                # to correct this if we want our translations to work.
-                # See https://github.com/zopefoundation/zope.configuration/issues/17
-                if (bytes is not str
-                    and hasattr(value, 'domain')
-                    and isinstance(value.domain, bytes)):
-                    domain = value.domain.decode('ascii')
-                    factory = zope.i18nmessageid.MessageFactory(domain)
-                    value = factory(str(value), value.default)
                 setattr(self, key, value)
         self._normalize()
         self._widgets = {}
