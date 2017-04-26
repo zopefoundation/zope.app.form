@@ -77,7 +77,8 @@ class _FakeResponse(FakeResponse):
     if str is bytes:
         # Up through at least 4.0.0 of zope.app.wsgi, Py2 has a bug,
         # assuming headers are in unicode already, or are decodable
-        # implicitly to ascii
+        # implicitly to ascii.
+        # See https://github.com/zopefoundation/zope.app.wsgi/issues/7.
         def getHeaders(self):
             headers = super(_FakeResponse, self).getHeaders()
             result = []
