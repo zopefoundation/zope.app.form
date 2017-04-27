@@ -23,7 +23,7 @@ from zope.component.eventtesting import getEvents
 from zope.component.interfaces import IFactory
 from zope.component.interfaces import IComponentLookup
 from zope.component.factory import Factory
-from zope.interface import Interface, implements
+from zope.interface import Interface, implementer
 from zope.lifecycleevent.interfaces import IObjectCreatedEvent, IObjectModifiedEvent
 from zope.publisher.browser import TestRequest
 from zope.publisher.interfaces.browser import IBrowserRequest
@@ -37,7 +37,7 @@ from zope.app.form.browser import TextWidget as Text
 from zope.app.form.browser.add import AddViewFactory, AddView
 from zope.app.form.browser.metaconfigure import AddFormDirective
 from zope.app.form.browser.submit import Update
-from zope.app.testing import ztapi
+import zope.app.form.testing as ztapi
 
 # Foo needs to be imported as globals() are checked
 from zope.app.form.browser.tests.test_editview import IFoo, IBar, Foo
@@ -69,9 +69,8 @@ class I(Interface):
     extra1 = TextLine()
     extra2 = TextLine(required=False)
 
+@implementer(I)
 class C(object):
-
-    implements(I)
 
     def __init__(self, *args, **kw):
         self.args = args
@@ -170,7 +169,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         (descriminator, callable, args, kw) = self._context.last_action
 
         self.assertEqual(descriminator,
-                         ('view', IAdding, 'addthis', IBrowserRequest, 
+                         ('view', IAdding, 'addthis', IBrowserRequest,
                          IDefaultBrowserLayer))
 
         self.assertEqual(callable, AddViewFactory)
@@ -208,7 +207,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         (descriminator, callable, args, kw) = self._context.last_action
 
         self.assertEqual(descriminator,
-                         ('view', IAdding, 'addthis', IBrowserRequest, 
+                         ('view', IAdding, 'addthis', IBrowserRequest,
                          IDefaultBrowserLayer))
 
         self.assertEqual(callable, AddViewFactory)
@@ -243,9 +242,10 @@ class Test(PlacelessSetup, unittest.TestCase):
 
     def test_create(self):
 
+        @implementer(IAdding)
         class Adding(object):
 
-            implements(IAdding)
+
 
             def __init__(self, test):
                 self.test = test
@@ -276,9 +276,8 @@ class Test(PlacelessSetup, unittest.TestCase):
 
     def test_create_content_factory_id(self):
 
+        @implementer(IAdding)
         class Adding(object):
-
-            implements(IAdding)
 
             def __init__(self, test):
                 self.test = test
@@ -298,7 +297,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         # register content factory for content factory id lookup
         ztapi.provideAdapter(None, IComponentLookup, SiteManagerAdapter)
         ztapi.provideUtility(IFactory, Factory(C), name='C')
-        
+
         adding = Adding(self)
         self._invoke_add(content_factory='C')
         (descriminator, callable, args, kw) = self._context.last_action
@@ -313,9 +312,8 @@ class Test(PlacelessSetup, unittest.TestCase):
 
     def test_createAndAdd(self):
 
+        @implementer(IAdding)
         class Adding(object):
-
-            implements(IAdding)
 
             def __init__(self, test):
                 self.test = test
@@ -350,9 +348,8 @@ class Test(PlacelessSetup, unittest.TestCase):
 
     def test_createAndAdd_w_adapter(self):
 
+        @implementer(IAdding)
         class Adding(object):
-
-            implements(IAdding)
 
             def __init__(self, test):
                 self.test = test
@@ -381,8 +378,9 @@ class Test(PlacelessSetup, unittest.TestCase):
 
     def test_hooks(self):
 
+        @implementer(IAdding)
         class Adding(object):
-            implements(IAdding)
+            pass
 
         adding = Adding()
         self._invoke_add()

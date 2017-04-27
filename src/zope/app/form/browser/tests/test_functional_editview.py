@@ -19,31 +19,53 @@ import unittest
 import transaction
 from persistent import Persistent
 
-import zope.security.checker
-from zope.interface import Interface, implements
+
+from zope.interface import Interface, implementer
 from zope.schema import TextLine
 from zope.traversing.api import traverse
 
+from zope.app.form.browser.tests.support import registerEditForm
+from zope.app.form.browser.tests.support import defineSecurity
+from zope.app.form.browser.tests.support import patternExists
 from zope.app.form.browser.editview import EditView
 from zope.app.form.testing import AppFormLayer
-from zope.app.form.browser.tests.support import *
-from zope.app.testing.functional import BrowserTestCase
+
+from webtest import TestApp
+
 
 class IFoo(Interface):
 
     optional_text = TextLine(required=False)
     required_text = TextLine(required=True)
 
+@implementer(IFoo)
 class Foo(Persistent):
+    pass
 
-    implements(IFoo)
 
-class Test(BrowserTestCase):
+class Test(unittest.TestCase):
+
+    layer = AppFormLayer
 
     def setUp(self):
-        BrowserTestCase.setUp(self)
+        self.getRootFolder = self.layer.getRootFolder
         registerEditForm(IFoo)
         defineSecurity(Foo, IFoo)
+        self._testapp = TestApp(self.layer.make_wsgi_app())
+
+    def publish(self, path, basic=None, form=None, headers=None):
+        if basic:
+            self._testapp.authorization = ('Basic', tuple(basic.split(':')))
+        else:
+            self._testapp.authorization = None
+        env = {'wsgi.handleErrors': False}
+        if form:
+            response = self._testapp.post(path, params=form,
+                                          extra_environ=env, headers=headers)
+        else:
+            response = self._testapp.get(path, extra_environ=env, headers=headers)
+        return response
+
 
     def test_rollback_on_error(self):
         """Tests rollback when a widget error occurs.
@@ -72,13 +94,13 @@ class Test(BrowserTestCase):
                 'field.optional_text': u'',
                 'field.required_text': u'',
                 'UPDATE_SUBMIT': ''})
-            self.assertEqual(response.getStatus(), 200)
+            self.assertEqual(response.status_int, 200)
         finally:
             EditView.update = old_update
 
         # confirm that one errors exists
-        self.assert_(patternExists(
-            'There are <strong>1</strong> input errors.', response.getBody()))
+        self.assertTrue(patternExists(
+            'There are <strong>1</strong> input errors.', response.text))
 
         # confirm that foo was not modified
         foo = traverse(self.getRootFolder(), 'foo')
@@ -87,12 +109,7 @@ class Test(BrowserTestCase):
 
 
 def test_suite():
-    suite = unittest.TestSuite()
-    Test.layer = AppFormLayer
-    suite.addTest(unittest.makeSuite(Test))
-    return suite
+    return unittest.defaultTestLoader.loadTestsFromName(__name__)
 
 if __name__=='__main__':
     unittest.main(defaultTest='test_suite')
-
-

@@ -34,10 +34,11 @@ from zope.formlib.widget import CustomWidgetFactory
 from zope.app.form.browser.i18n import _
 from zope.formlib.interfaces import IInputWidget, IDisplayWidget
 from zope.formlib.interfaces import IWidgetFactory
-from add import AddView, AddViewFactory
-from editview import EditView, EditViewFactory
-from formview import FormView
-from schemadisplay import DisplayView, DisplayViewFactory
+
+from zope.app.form.browser.add import AddView, AddViewFactory
+from zope.app.form.browser.editview import EditView, EditViewFactory
+from zope.app.form.browser.formview import FormView
+from zope.app.form.browser.schemadisplay import DisplayView, DisplayViewFactory
 
 class BaseFormDirective(object):
 
@@ -85,7 +86,7 @@ class BaseFormDirective(object):
             # attribute.  This can be used to override some of the
             # presentational attributes of the widget implementation.
             class_ = self._default_widget_factory
-        
+
         # don't wrap a factory into a factory
         if IWidgetFactory.providedBy(class_):
             factory = class_

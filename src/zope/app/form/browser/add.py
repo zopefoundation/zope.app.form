@@ -34,8 +34,8 @@ from zope.formlib.interfaces import IInputWidget, WidgetsError
 from zope.app.form.browser.i18n import _
 from zope.browserpage.simpleviewclass import SimpleViewClass
 from zope.browserpage import ViewPageTemplateFile
-from editview import EditView
-from submit import Update
+from zope.app.form.browser.editview import EditView
+from zope.app.form.browser.submit import Update
 
 class AddView(EditView):
     """Simple edit-view base class.
@@ -59,7 +59,7 @@ class AddView(EditView):
             try:
                 data = getWidgetsData(self, self.schema, names=self.fieldNames)
                 self.createAndAdd(data)
-            except WidgetsError, errors:
+            except WidgetsError as errors:
                 self.errors = errors
                 self.update_status = _("An error occurred.")
                 return self.update_status
@@ -179,6 +179,6 @@ def AddViewFactory(name, schema, label, permission, layer,
                   )
     if layer is None:
         layer = IDefaultBrowserLayer
-    
+
     s = zope.component.getGlobalSiteManager()
     s.registerAdapter(class_, (for_, layer), Interface, name)

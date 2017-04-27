@@ -62,13 +62,11 @@ we do not care about the context, so it will be just `None`:
 
 We can now look at the widgets and see that the data was correctly loaded:
 
-  >>> view.first_widget()
-  u'<input class="textType" id="field.first" name="field.first"
-           size="20" type="text" value="John"  />'
+  >>> print(view.first_widget())
+  <input class="textType" id="field.first" name="field.first" size="20" type="text" value="John"  />
 
-  >>> view.last_widget()
-  u'<input class="textType" id="field.last" name="field.last"
-           size="20" type="text" value="Doe"  />'
+  >>> print(view.last_widget())
+  <input class="textType" id="field.last" name="field.last" size="20" type="text" value="Doe"  />
 
 Now when a request is sent in, the data is transmitted in the form
 
@@ -78,16 +76,19 @@ Now when a request is sent in, the data is transmitted in the form
 
 and as soon as the `update()` method is called
 
-  >>> view.update()
-  u'Saved changes.'
+  >>> print(view.update())
+  Saved changes.
 
 the global name variable is changed:
 
-  >>> name
-  [u'Stephan', u'Richter']
+  >>> print(name[0])
+  Stephan
+  >>> print(name[1])
+  Richter
+
 
 And that's pretty much all that there is to it. The rest behaves exactly like
-an edit form, from which the form view was derived. 
+an edit form, from which the form view was derived.
 
 Of course you can also completely overwrite the `update()` method like for the
 edit view removing the requirement to implement the `getData()` and
@@ -113,8 +114,9 @@ Before we run the directive, make sure that no view exists:
   >>> class IAnything(zope.interface.Interface):
   ...     pass
 
-  >>> class Anything(object):
-  ...     zope.interface.implements(IAnything)
+  >>> @zope.interface.implementer(IAnything)
+  ... class Anything(object):
+  ...    pass
 
   >>> from zope.publisher.browser import TestRequest
 
@@ -126,13 +128,13 @@ execute the form directive:
 
   >>> import sys
   >>> sys.modules['form'] = type(
-  ...     'Module', (), 
-  ...     {'DataHandler': DataHandler, 
-  ...      'IAnything': IAnything, 
+  ...     'Module', (),
+  ...     {'DataHandler': DataHandler,
+  ...      'IAnything': IAnything,
   ...      'IName': IName})()
 
   >>> context = xmlconfig.string('''
-  ...     <configure 
+  ...     <configure
   ...         xmlns="http://namespaces.zope.org/zope"
   ...         xmlns:browser="http://namespaces.zope.org/browser"
   ...         i18n_domain="zope">
@@ -144,7 +146,7 @@ execute the form directive:
   ...           factory="zope.app.form.browser.TextWidget"
   ...           permission="zope.Public"
   ...           />
-  ...       
+  ...
   ...       <browser:form
   ...           for="form.IAnything"
   ...           schema="form.IName"
@@ -175,8 +177,9 @@ Now, if I do not specify my own template, and my class does not overwrite the
 
   >>> sys.modules['form'].NewDataHandler = NewDataHandler
 
-  >>> context = xmlconfig.string('''
-  ...     <configure 
+  >>> try:
+  ...   xmlconfig.string('''
+  ...     <configure
   ...         xmlns:browser="http://namespaces.zope.org/browser"
   ...         i18n_domain="zope">
   ...
@@ -191,12 +194,10 @@ Now, if I do not specify my own template, and my class does not overwrite the
   ...
   ...     </configure>
   ...    ''', context)
-  Traceback (most recent call last):
-  ...
-  ZopeXMLConfigurationError: File "<string>", line 6.6
-        ConfigurationError: You must specify a class that implements 
-                            `getData()` and `setData()`, if you do not 
-                            overwrite `update()`.
+  ... except xmlconfig.ZopeXMLConfigurationError as e:
+  ...   print(e)
+  File "<string>", line 6.6
+        ConfigurationError: You must specify a class that implements `getData()` and `setData()`, if you do not overwrite `update()`.
 
 Now we need to clean up afterwards.
 

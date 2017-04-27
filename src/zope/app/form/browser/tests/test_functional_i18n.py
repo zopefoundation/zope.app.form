@@ -21,10 +21,11 @@ import unittest
 import doctest
 from persistent import Persistent
 from zope.testing import renormalizing
-from zope.interface import Interface, implements
+from zope.interface import Interface, implementer
 from zope.schema import TextLine, Text, Int, List
 from zope.i18nmessageid import MessageFactory
-from zope.app.testing.functional import FunctionalDocFileSuite
+
+from zope.app.wsgi.testlayer import http
 from zope.app.form.testing import AppFormLayer
 
 
@@ -62,23 +63,38 @@ class IFieldContent(Interface):
         required=False
         )
 
-
+@implementer(IFieldContent)
 class FieldContent(Persistent):
-    implements(IFieldContent)
+    pass
 
 
 checker = renormalizing.RENormalizing([
-    (re.compile(r"HTTP/1\.1 200 .*"), "HTTP/1.1 200 OK"),
+    (re.compile(r"HTTP/1\.0 200 .*"), "HTTP/1.1 200 OK"),
     ])
 
-
 def test_suite():
-    i18n = FunctionalDocFileSuite('i18n.txt', package='zope.app.form.browser',
-        checker=checker)
+    def setUp(test):
+        wsgi_app = AppFormLayer.make_wsgi_app()
+        def _http(query_str, *args, **kwargs):
+            # Strip leading \n
+            query_str = query_str.lstrip()
+            if not isinstance(query_str, bytes):
+                query_str = query_str.encode("ascii")
+            response = http(wsgi_app, query_str, *args, **kwargs)
+            return response
+
+        test.globs['http'] = _http
+
+    i18n = doctest.DocFileSuite('../i18n.rst',
+                                setUp=setUp,
+                                checker=checker,
+                                optionflags=doctest.ELLIPSIS
+                                | doctest.REPORT_NDIFF
+                                | doctest.NORMALIZE_WHITESPACE)
     i18n.layer = AppFormLayer
     return unittest.TestSuite([
         i18n,
-        ])
+    ])
 
 
 if __name__ == '__main__':

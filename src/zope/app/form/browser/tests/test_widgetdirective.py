@@ -13,9 +13,9 @@
 ##############################################################################
 """Tests for the <widget> subdirective for the generated form pages.
 
-$Id$
 """
 import unittest
+import doctest
 
 import zope.component
 import zope.interface
@@ -40,10 +40,9 @@ class IContent(zope.interface.Interface):
         required=False,
         )
 
-
+@zope.interface.implementer(IContent)
 class Content(object):
 
-    zope.interface.implements(IContent)
     __Security_checker__ = utils.SchemaChecker(IContent)
 
     __parent__ = None
@@ -51,13 +50,11 @@ class Content(object):
 
     field = None
 
-
+@zope.interface.implementer(IAdding)
 class Adding(object):
 
-    zope.interface.implements(IAdding)
-
     def add(self, content):
-        self.content = content
+        raise NotImplementedError("Don't actually get here")
 
 
 class WidgetDirectiveTestCase(zope.component.testing.PlacelessSetup,
@@ -90,4 +87,6 @@ class WidgetDirectiveTestCase(zope.component.testing.PlacelessSetup,
 
 
 def test_suite():
-    return unittest.makeSuite(WidgetDirectiveTestCase)
+    return unittest.TestSuite((
+        unittest.defaultTestLoader.loadTestsFromName(__name__),
+        doctest.DocFileSuite("../widgets.rst")))

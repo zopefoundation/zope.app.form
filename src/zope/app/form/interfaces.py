@@ -13,9 +13,9 @@
 ##############################################################################
 """Validation Exceptions
 
-$Id$
+This has been moved to zope.formlib.interfaces.
 """
-__docformat__ = 'restructuredtext'
+
 
 # this moved to zope.formlib.interfaces
 from zope.formlib.interfaces import (IWidgetInputError,
@@ -29,5 +29,3 @@ from zope.formlib.interfaces import (IWidgetInputError,
                                      IInputWidget,
                                      IDisplayWidget,
                                      IWidgetFactory)
-
-                          
