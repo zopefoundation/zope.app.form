@@ -17,8 +17,6 @@
 # Zope Toolkit policies as described by this documentation.
 ##############################################################################
 """Setup for zope.app.form package
-
-$Id: setup.py 81002 2007-10-24 01:19:47Z srichter $
 """
 import os
 from setuptools import setup, find_packages
@@ -36,7 +34,7 @@ tests_require = [
     'zope.app.appsetup',
     'zope.testing',
     'zope.testrunner',
-    'zope.app.wsgi',
+    'zope.app.wsgi >= 4.1.0',
     'webtest',
 ]
 

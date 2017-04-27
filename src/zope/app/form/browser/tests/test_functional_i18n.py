@@ -26,7 +26,6 @@ from zope.schema import TextLine, Text, Int, List
 from zope.i18nmessageid import MessageFactory
 
 from zope.app.wsgi.testlayer import http
-from zope.app.wsgi.testlayer import FakeResponse
 from zope.app.form.testing import AppFormLayer
 
 
@@ -73,29 +72,6 @@ checker = renormalizing.RENormalizing([
     (re.compile(r"HTTP/1\.0 200 .*"), "HTTP/1.1 200 OK"),
     ])
 
-class _FakeResponse(FakeResponse):
-    if str is bytes:
-        # Up through at least 4.0.0 of zope.app.wsgi, Py2 has a bug,
-        # assuming headers are in unicode already, or are decodable
-        # implicitly to ascii.
-        # See https://github.com/zopefoundation/zope.app.wsgi/issues/7.
-        def getHeaders(self):
-            headers = super(_FakeResponse, self).getHeaders()
-            result = []
-            for key, value in headers:
-                assert isinstance(key, str)
-                assert isinstance(value, str)
-                result.append((key.decode('latin-1'),
-                               value.decode('latin-1')))
-            return result
-
-        # we also need to ensure we get something that can be printed
-        # in ascii and produce the same output as Py3.
-        def __str__(self):
-            return self.getOutput().decode('latin-1').encode("utf-8")
-
-
-
 def test_suite():
     def setUp(test):
         wsgi_app = AppFormLayer.make_wsgi_app()
@@ -105,7 +81,6 @@ def test_suite():
             if not isinstance(query_str, bytes):
                 query_str = query_str.encode("ascii")
             response = http(wsgi_app, query_str, *args, **kwargs)
-            response.__class__ = _FakeResponse
             return response
 
         test.globs['http'] = _http
