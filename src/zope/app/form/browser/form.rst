@@ -194,10 +194,10 @@ Now, if I do not specify my own template, and my class does not overwrite the
   ...
   ...     </configure>
   ...    ''', context)
-  ... except xmlconfig.ZopeXMLConfigurationError as e:
+  ... except xmlconfig.ConfigurationError as e:
   ...   print(e)
-  File "<string>", line 6.6
-        ConfigurationError: You must specify a class that implements `getData()` and `setData()`, if you do not overwrite `update()`.
+  You must specify a class that implements `getData()` and `setData()`, if you do not overwrite `update()`.
+      File "<string>", line 6.6
 
 Now we need to clean up afterwards.
 

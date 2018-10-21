@@ -21,7 +21,7 @@ from zope.browser.interfaces import IAdding
 from zope.component import getMultiAdapter
 from zope.component.eventtesting import getEvents
 from zope.component.interfaces import IFactory
-from zope.component.interfaces import IComponentLookup
+from zope.interface.interfaces import IComponentLookup
 from zope.component.factory import Factory
 from zope.interface import Interface, implementer
 from zope.lifecycleevent.interfaces import IObjectCreatedEvent, IObjectModifiedEvent
@@ -270,7 +270,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         view = getMultiAdapter((adding, request), name='addthis')
         content = view.create('a',0,abc='def')
 
-        self.failUnless(isinstance(content, C))
+        self.assertTrue(isinstance(content, C))
         self.assertEqual(content.args, ('a', 0))
         self.assertEqual(content.kw, {'abc':'def'})
 
@@ -306,7 +306,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         view = getMultiAdapter((adding, request), name='addthis')
         content = view.create('a',0,abc='def')
 
-        self.failUnless(isinstance(content, C))
+        self.assertTrue(isinstance(content, C))
         self.assertEqual(content.args, ('a', 0))
         self.assertEqual(content.kw, {'abc':'def'})
 

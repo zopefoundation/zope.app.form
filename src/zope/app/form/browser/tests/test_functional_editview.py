@@ -104,8 +104,8 @@ class Test(unittest.TestCase):
 
         # confirm that foo was not modified
         foo = traverse(self.getRootFolder(), 'foo')
-        self.assertEquals(foo.required_text, u'initial required')
-        self.assertEquals(foo.optional_text, u'initial optional')
+        self.assertEqual(foo.required_text, u'initial required')
+        self.assertEqual(foo.optional_text, u'initial optional')
 
 
 def test_suite():

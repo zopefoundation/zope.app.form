@@ -23,7 +23,7 @@ import doctest
 import zope.security.checker
 from zope.interface import Interface, implementer
 from zope.component import testing
-from zope.component.interfaces import ComponentLookupError
+from zope.interface.interfaces import ComponentLookupError
 from zope.publisher.browser import TestRequest, BrowserView
 from zope.security.interfaces import ForbiddenAttribute, Unauthorized
 from zope.schema import Field, Int, accessors
