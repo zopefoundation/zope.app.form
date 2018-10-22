@@ -39,7 +39,7 @@ tests_require = [
 ]
 
 setup(name='zope.app.form',
-      version='5.1.0',
+      version='5.1.1.dev0',
       author='Zope Corporation and Contributors',
       author_email='zope-dev@zope.org',
       description='The Original Zope 3 Form Framework',
