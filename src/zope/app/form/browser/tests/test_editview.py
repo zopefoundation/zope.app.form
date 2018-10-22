@@ -152,7 +152,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         self.assertEqual(c.a  , u'c a')
         self.assertEqual(c.b  , u'c b')
         self.assertEqual(c.getbaz(), u'c baz')
-        self.failIf(getEvents())
+        self.assertFalse(getEvents())
 
     def test_update(self):
         c = C()
@@ -165,7 +165,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         request.form['field.a'] = u'c a'
 
         message = v.update()
-        self.failUnless(message.startswith('Updated '), message)
+        self.assertTrue(message.startswith('Updated '), message)
         self.assertEqual(c.foo, u'r foo')
         self.assertEqual(c.bar, u'r bar')
         self.assertEqual(c.a  , u'c a')
@@ -194,10 +194,10 @@ class Test(PlacelessSetup, unittest.TestCase):
         request.form[Update] = ''
         request.form['field.bar'] = u'r bar'
         message = v.update()
-        self.failUnless(message.startswith('Updated '), message)
+        self.assertTrue(message.startswith('Updated '), message)
         self.assertEqual(a.bar, u'r bar')
         # wrong update
-        self.failIf(getEvents())
+        self.assertFalse(getEvents())
 
     def test_setUpWidget_via_conform_adapter(self):
 
