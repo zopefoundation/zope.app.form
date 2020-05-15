@@ -26,16 +26,17 @@ def read(*rnames):
         return f.read()
 
 tests_require = [
+    'webtest',
     'zc.sourcefactory',
+    'zope.app.appsetup',
+    'zope.app.wsgi >= 4.1.0',
     'zope.container',
+    'zope.i18n[compile]',
     'zope.principalregistry',
     'zope.site',
-    'zope.traversing',
-    'zope.app.appsetup',
     'zope.testing',
     'zope.testrunner',
-    'zope.app.wsgi >= 4.1.0',
-    'webtest',
+    'zope.traversing',
 ]
 
 setup(name='zope.app.form',
