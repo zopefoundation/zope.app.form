@@ -9,6 +9,8 @@ CHANGES
 
 - Drop support for Python 3.4.
 
+- Adapt to changes in ``zope.configuration >= 4.4``.
+
 
 5.1.0 (2018-10-22)
 ==================

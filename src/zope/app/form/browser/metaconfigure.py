@@ -23,6 +23,7 @@ import zope.component
 from zope.security.checker import CheckerPublic
 from zope.interface import implementedBy
 from zope.configuration.exceptions import ConfigurationError
+from zope.configuration.xmlconfig import ZopeXMLConfigurationError
 
 from zope.browser.interfaces import IAdding
 from zope.schema import getFieldNamesInOrder
@@ -113,7 +114,7 @@ class BaseFormDirective(object):
         if self.template is not None:
             self.template = os.path.abspath(str(self.template))
             if not os.path.isfile(self.template):
-                raise ConfigurationError("No such file", self.template)
+                raise ZopeXMLConfigurationError("No such file", self.template)
         else:
             self.template = self.default_template
 
@@ -286,9 +287,10 @@ class FormDirective(EditFormDirective):
         attrs = self.class_.__dict__.keys()
         if 'template' not in kwargs.keys() and 'update' not in attrs and \
                ('getData' not in attrs or 'setData' not in attrs):
-            raise ConfigurationError(
+            raise ZopeXMLConfigurationError(
                 "You must specify a class that implements `getData()` "
-                "and `setData()`, if you do not overwrite `update()`.")
+                "and `setData()`, if you do not overwrite `update()`.",
+                ConfigurationError())
 
 
 class SubeditFormDirective(EditFormDirectiveBase):
