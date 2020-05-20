@@ -114,7 +114,7 @@ class BaseFormDirective(object):
         if self.template is not None:
             self.template = os.path.abspath(str(self.template))
             if not os.path.isfile(self.template):
-                raise ZopeXMLConfigurationError("No such file", self.template)
+                raise ConfigurationError("No such file", self.template)
         else:
             self.template = self.default_template
 
