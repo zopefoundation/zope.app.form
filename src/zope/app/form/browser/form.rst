@@ -177,8 +177,7 @@ Now, if I do not specify my own template, and my class does not overwrite the
 
   >>> sys.modules['form'].NewDataHandler = NewDataHandler
 
-  >>> try:
-  ...   xmlconfig.string('''
+  >>> xmlconfig.string('''
   ...     <configure
   ...         xmlns:browser="http://namespaces.zope.org/browser"
   ...         i18n_domain="zope">
@@ -194,10 +193,11 @@ Now, if I do not specify my own template, and my class does not overwrite the
   ...
   ...     </configure>
   ...    ''', context)
-  ... except xmlconfig.ConfigurationError as e:
-  ...   print(e)
-  You must specify a class that implements `getData()` and `setData()`, if you do not overwrite `update()`.
+  Traceback (most recent call last):
+      ...
+  ZopeXMLConfigurationError: You must specify a class that implements `getData()` and `setData()`, if you do not overwrite `update()`.
       File "<string>", line 6.6
+      zope.configuration.exceptions.ConfigurationError
 
 Now we need to clean up afterwards.
 

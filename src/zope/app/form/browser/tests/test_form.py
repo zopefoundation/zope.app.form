@@ -33,8 +33,6 @@ import re
 checker = renormalizing.RENormalizing([
     (re.compile("u('.*?')"), r"\1"),
     (re.compile('u(".*?")'), r"\1"),
-    # Python 3 adds module name to exceptions.
-    (re.compile('zope.configuration.xmlconfig.ZopeXMLConfigurationError'), 'ZopeXMLConfigurationError'),
 ])
 
 
@@ -47,7 +45,8 @@ def test_suite():
     return unittest.TestSuite((
         doctest.DocFileSuite('../form.rst',
                              setUp=setUp, tearDown=testing.tearDown,
-                             optionflags=doctest.NORMALIZE_WHITESPACE),
+                             optionflags=doctest.NORMALIZE_WHITESPACE
+                             | doctest.IGNORE_EXCEPTION_DETAIL),
         ))
 
 if __name__ == '__main__':
