@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Browser widgets for sequences
-
-$Id$
-"""
+"""Browser widgets for sequences"""
 # BBB implementation moved to zope.formlib.sequencewidget
 from zope.formlib.sequencewidget import (
     ListSequenceWidget,

@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Form and Widget specific 'browser' ZCML namespace interfaces
-
-$Id$
-"""
+"""Form and Widget specific 'browser' ZCML namespace interfaces"""
 __docformat__ = 'restructuredtext'
 
 from zope.interface import Interface

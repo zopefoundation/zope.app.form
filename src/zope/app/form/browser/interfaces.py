@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Form and Widget Interfaces
-
-$Id$
-"""
+"""Form and Widget Interfaces"""
 __docformat__ = 'restructuredtext'
 
 from zope.interface import Interface

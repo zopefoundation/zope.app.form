@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Source widgets support
-
-$Id$
-"""
+"""Source widgets support"""
 # BBB
 from zope.formlib.source import (
     IterableSourceVocabulary,

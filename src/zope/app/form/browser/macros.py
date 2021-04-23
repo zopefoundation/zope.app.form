@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""API Documentation macros
-
-$Id$
-"""
+"""API Documentation macros"""
 __docformat__ = 'restructuredtext'
 
 from zope.component import getMultiAdapter

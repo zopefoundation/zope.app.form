@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""General test support.
-
-$Id$
-"""
+"""General test support."""
 from zope.configuration import xmlconfig
 
 # This import is used in tests.

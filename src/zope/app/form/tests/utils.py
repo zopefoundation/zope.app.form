@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Utilities for testing form machinery
-
-$Id$
-"""
+"""Utilities for testing form machinery"""
 from zope.interface.interfaces import IMethod
 from zope.security.interfaces import Unauthorized
 import zope.security.checker

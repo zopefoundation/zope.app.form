@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Support for display-only pages based on schema.
-
-$Id$
-"""
+"""Support for display-only pages based on schema."""
 __docformat__ = 'restructuredtext'
 
 import zope.component

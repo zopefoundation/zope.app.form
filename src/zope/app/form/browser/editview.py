@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Edit View Classes
-
-$Id$
-"""
+"""Edit View Classes"""
 __docformat__ = 'restructuredtext'
 
 from datetime import datetime

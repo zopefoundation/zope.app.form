@@ -11,9 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Tests for the <widget> subdirective for the generated form pages.
-
-"""
+"""Tests for the <widget> subdirective for the generated form pages."""
 import unittest
 import doctest
 

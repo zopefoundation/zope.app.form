@@ -29,8 +29,6 @@ specific parameters.
 This module provides some utility functions that provide some of the
 functionality of formulator forms that isn't handled by schema,
 fields, or widgets.
-
-$Id$
 """
 __docformat__ = 'restructuredtext'
 

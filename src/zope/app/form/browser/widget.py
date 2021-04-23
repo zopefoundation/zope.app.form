@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Browser Widget Definitions
-
-$Id$
-"""
+"""Browser Widget Definitions"""
 __docformat__ = 'restructuredtext'
 
 # BBB

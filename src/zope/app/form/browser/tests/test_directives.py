@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Form Directives Tests
-
-$Id$
-"""
+"""Form Directives Tests"""
 import unittest
 try:
     from cStringIO import StringIO

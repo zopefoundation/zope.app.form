@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Tests for the ZCML Documentation Module
-
-$Id$
-"""
+"""Tests for the ZCML Documentation Module"""
 import unittest
 import doctest
 

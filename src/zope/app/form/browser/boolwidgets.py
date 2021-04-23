@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Browser widgets for items
-
-$Id$
-"""
+"""Browser widgets for items"""
 # BBB implementation moved to zope.formlib.boolwidgets
 from zope.formlib.boolwidgets import (
     CheckBoxWidget,

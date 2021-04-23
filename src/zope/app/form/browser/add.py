@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Add Form View class
-
-$Id$
-"""
+"""Add Form View class"""
 __docformat__ = 'restructuredtext'
 
 import sys

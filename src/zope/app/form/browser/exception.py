@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Form-related exception views
-
-$Id$
-"""
+"""Form-related exception views"""
 # BBB implementation moved to zope.formlib.exception
 from zope.formlib.exception import WidgetInputErrorView
 

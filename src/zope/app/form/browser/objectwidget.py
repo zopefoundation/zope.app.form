@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Browser widgets for text-like data
-
-$Id$
-"""
+"""Browser widgets for text-like data"""
 # implementation moved to zope.formlib.objectwidget
 # BBB
 from zope.formlib.objectwidget import (

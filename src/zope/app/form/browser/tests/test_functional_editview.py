@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Editview tests
-
-$Id$
-"""
+"""Editview tests"""
 import unittest
 import transaction
 from persistent import Persistent

@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Form Utilities Tests
-
-$Id$
-"""
+"""Form Utilities Tests"""
 
 import doctest
 import re

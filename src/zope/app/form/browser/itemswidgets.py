@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Browser widgets for items
-
-$Id$
-"""
+"""Browser widgets for items"""
 __docformat__ = 'restructuredtext'
 
 # BBB the implementation has moved to zope.formlib.itemswidgets

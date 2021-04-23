@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Test form i18n
-
-$Id$
-"""
+"""Test form i18n"""
 
 import re
 import unittest

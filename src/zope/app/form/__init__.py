@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Generic Widget base classes
-
-$Id$
-"""
+"""Generic Widget base classes"""
 __docformat__ = 'restructuredtext'
 # BBB
 from zope.formlib.widget import Widget, InputWidget, CustomWidgetFactory

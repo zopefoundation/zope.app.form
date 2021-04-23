@@ -14,8 +14,6 @@
 """Standard submit button names
 
 Update -- Name of the standard update submit button
-
-$Id$
 """
 __docformat__ = 'restructuredtext'
 

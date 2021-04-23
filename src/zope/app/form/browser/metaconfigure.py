@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Configuration handlers for forms and widgets
-
-$Id$
-"""
+"""Configuration handlers for forms and widgets"""
 __docformat__ = 'restructuredtext'
 
 import os

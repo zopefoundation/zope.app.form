@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Browser widgets with text-based input
-
-$Id$
-"""
+"""Browser widgets with text-based input"""
 # BBB implementation moved to zope.formlib.textwidgets
 from zope.formlib.textwidgets import (
     ASCII,

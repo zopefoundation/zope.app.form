@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""zope.app.form common test related classes/functions/objects.
-
-$Id$
-"""
+"""zope.app.form common test related classes/functions/objects."""
 
 __docformat__ = "reStructuredText"
 

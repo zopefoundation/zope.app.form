@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Edit View Tests
-
-$Id$
-"""
+"""Edit View Tests"""
 import unittest
 
 from zope.component.eventtesting import getEvents, clearEvents

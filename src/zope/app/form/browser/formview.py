@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Form View Classes
-
-$Id$
-"""
+"""Form View Classes"""
 __docformat__ = 'restructuredtext'
 
 import transaction

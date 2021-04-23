@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Test add-form
-
-$Id$
-"""
+"""Test add-form"""
 import unittest
 
 from zope.browser.interfaces import IAdding
