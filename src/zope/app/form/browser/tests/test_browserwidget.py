@@ -11,13 +11,19 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Test Browser Widget
-
-$Id$
-"""
+"""Test Browser Widget"""
 # BBB
 from zope.formlib.tests.test_browserwidget import (
     BrowserWidgetTest,
     SimpleInputWidgetTest,
     TestWidget,
-    Test)
+    Test,
+)
+
+
+__all__ = [
+    'BrowserWidgetTest',
+    'SimpleInputWidgetTest',
+    'TestWidget',
+    'Test',
+]

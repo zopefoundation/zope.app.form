@@ -11,12 +11,10 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Form Utilities Tests
-
-$Id$
-"""
+"""Form Utilities Tests"""
 
 import doctest
+import re
 # XXX: Apparently unused imports that linters warn about
 # are probable used in docstring doctests.
 # pylint:disable=unused-import
@@ -25,15 +23,16 @@ from zope.interface import Interface, implementer
 from zope.component import testing
 from zope.interface.interfaces import ComponentLookupError
 from zope.publisher.browser import TestRequest, BrowserView
-from zope.security.interfaces import ForbiddenAttribute, Unauthorized
+from zope.security.interfaces import ForbiddenAttribute
 from zope.schema import Field, Int, accessors
 from zope.schema.interfaces import IField, IInt
+from zope.testing import renormalizing
 
 import zope.app.form.testing as ztapi
 
 from zope.formlib.widget import Widget
 from zope.formlib.interfaces import IWidget, IInputWidget, IDisplayWidget
-from zope.formlib.interfaces import ConversionError, InputErrors, WidgetsError
+from zope.formlib.interfaces import ConversionError, WidgetsError
 from zope.formlib.interfaces import IWidgetFactory
 from zope.app.form.utility import no_value, setUpWidget, setUpWidgets
 from zope.app.form.utility import setUpEditWidgets, setUpDisplayWidgets
@@ -41,65 +40,81 @@ from zope.app.form.utility import getWidgetsData, viewHasInput
 from zope.app.form.utility import applyWidgetsChanges
 from zope.app.form.tests import utils
 
+
 request = TestRequest()
+
 
 class IFoo(IField):
     pass
+
 
 @implementer(IFoo)
 class Foo(Field):
     pass
 
+
 class IBar(IField):
     pass
+
 
 @implementer(IBar)
 class Bar(Field):
     pass
 
+
 class IBaz(IInt):
     pass
+
 
 @implementer(IBaz)
 class Baz(Int):
     pass
 
+
 class IContent(Interface):
     foo = Foo()
     bar = Bar()
+
 
 @implementer(IContent)
 class Content(object):
     __Security_checker__ = utils.SchemaChecker(IContent)
     foo = 'Foo'
 
+
 class IFooWidget(IWidget):
     pass
 
+
 class IBarWidget(IWidget):
     pass
+
 
 @implementer(IFooWidget)
 class FooWidget(Widget):
 
     def getPrefix(self): return self._prefix  # exposes _prefix for testing
-    def getRenderedValue(self): return self._data # exposes _data for testing
-    def renderedValueSet(self): return self._renderedValueSet() # for testing
+    def getRenderedValue(self): return self._data  # exposes _data for testing
+    def renderedValueSet(self): return self._renderedValueSet()  # for testing
+
 
 @implementer(IBarWidget)
 class BarWidget(Widget):
 
-    def getRenderedValue(self): return self._data # exposes _data for testing
-    def renderedValueSet(self): return self._renderedValueSet() # for testing
+    def getRenderedValue(self): return self._data  # exposes _data for testing
+    def renderedValueSet(self): return self._renderedValueSet()  # for testing
+
 
 class BazWidget(Widget):
-    def getRenderedValue(self): return self._data # exposes _data for testing
-    def renderedValueSet(self): return self._renderedValueSet() # for testing
+    def getRenderedValue(self): return self._data  # exposes _data for testing
+    def renderedValueSet(self): return self._renderedValueSet()  # for testing
+
 
 class IExtendedContent(IContent):
     getBaz, setBaz = accessors(Baz())
     getAnotherBaz, setAnotherBaz = accessors(Baz())
     shazam = Foo()
+
 
 @implementer(IExtendedContent)
 class ExtendedContent(Content):
@@ -109,10 +124,12 @@ class ExtendedContent(Content):
     def getAnotherBaz(self): return self._anotherbaz
     def setAnotherBaz(self, value): self._anotherbaz = value
 
+
 extended_checker = utils.DummyChecker(
-        {'foo':True, 'bar': True, 'getBaz': True, 'setBaz': True,
-         'getAnotherBaz': True, 'setAnotherBaz': False, 'shazam': False},
-        {'foo':True, 'bar': False, 'shazam': True})
+    {'foo': True, 'bar': True, 'getBaz': True, 'setBaz': True,
+     'getAnotherBaz': True, 'setAnotherBaz': False, 'shazam': False},
+    {'foo': True, 'bar': False, 'shazam': True})
+
 
 def setUp():
     """Setup for tests."""
@@ -120,8 +137,10 @@ def setUp():
     ztapi.browserView(IFoo, '', FooWidget, providing=IFooWidget)
     ztapi.browserView(IBar, '', BarWidget, providing=IBarWidget)
 
+
 def tearDown():
     testing.tearDown()
+
 
 def assertRaises(exceptionType, callable, *args):
     try:
@@ -129,6 +148,7 @@ def assertRaises(exceptionType, callable, *args):
         raise NotImplementedError("Shouldn't get here")
     except Exception as e:
         return isinstance(e, exceptionType)
+
 
 class TestSetUpWidget(object):
 
@@ -217,7 +237,8 @@ class TestSetUpWidget(object):
             True
 
         Similarly, if a view has a widget attribute that implements
-        IWidgetFactory, the object created by the factory must implement IWidget.
+        IWidgetFactory, the object created by the factory must implement
+        IWidget.
 
             >>> @implementer(IWidgetFactory)
             ... class Factory(object):
@@ -437,6 +458,7 @@ class TestSetUpWidget(object):
         >>> tearDown()
         """
 
+
 class TestSetUpWidgets(object):
 
     def test_typical(self):
@@ -604,6 +626,7 @@ class TestSetUpWidgets(object):
 
         >>> tearDown()
         """
+
 
 class TestFormSetUp(object):
 
@@ -786,7 +809,7 @@ class TestFormSetUp(object):
             AttributeError: 'BrowserView' object has no attribute 'shazam_widget'
 
         >>> tearDown()
-        """
+        """  # noqa: E501 line too long
 
     def test_setUpDisplayWidgets(self):
         """Documents and tests setUpDisplayWidgets.
@@ -876,7 +899,8 @@ class TestFormSetUp(object):
             AttributeError: 'BrowserView' object has no attribute 'shazam_widget'
 
         >>> tearDown()
-        """
+        """  # noqa: E501 line too long
+
 
 class TestForms(object):
 
@@ -1016,6 +1040,7 @@ class TestForms(object):
         >>> tearDown()
         """
 
+
 class TestGetWidgetsData(object):
 
     def test_typical(self):
@@ -1148,18 +1173,18 @@ class TestGetWidgetsData(object):
             {'foo': 'Foo'}
         """
 
-from zope.testing import renormalizing
 
-import re
 checker = renormalizing.RENormalizing([
     (re.compile("u('.*?')"), r"\1"),
     (re.compile('u(".*?")'), r"\1"),
     # Python 3 adds module name to exceptions.
     (re.compile('zope.interface.exceptions.Invalid'), 'Invalid'),
     (re.compile('zope.security.interfaces.Unauthorized'), 'Unauthorized'),
-    (re.compile('zope.security.interfaces.ForbiddenAttribute'), 'ForbiddenAttribute'),
+    (re.compile('zope.security.interfaces.ForbiddenAttribute'),
+        'ForbiddenAttribute'),
     (re.compile('zope.formlib.interfaces.WidgetsError'), 'WidgetsError'),
 ])
+
 
 def test_suite():
     return doctest.DocTestSuite(checker=checker)

@@ -15,12 +15,14 @@
 import importlib
 import unittest
 
+
 def _make_import_test(mod_name, attrname):
     def test(self):
         mod = importlib.import_module('zope.app.form.' + mod_name)
         self.assertIsNotNone(getattr(mod, attrname))
 
     return test
+
 
 class TestBWCImports(unittest.TestCase):
 
@@ -32,8 +34,10 @@ class TestBWCImports(unittest.TestCase):
                                ('browser.objectwidget', 'ObjectWidget'),
                                ('browser.exception', 'WidgetInputErrorView'),
                                ('browser.boolwidgets', 'CheckBoxWidget'),
-                               ('browser.itemswidgets', 'ChoiceDisplayWidget')):
+                               ('browser.itemswidgets',
+                                'ChoiceDisplayWidget')):
         locals()['test_' + mod_name] = _make_import_test(mod_name, attrname)
+
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)

@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Browser widgets
-
-$Id$
-"""
+"""Browser widgets"""
 __docformat__ = 'restructuredtext'
 
 # the implementation of widgets has moved to zope.formlib.widgets
@@ -81,3 +78,57 @@ from zope.formlib.widgets import ListSequenceWidget
 from zope.formlib.widgets import SequenceDisplayWidget
 
 from zope.formlib.widgets import ObjectWidget
+
+
+__all__ = [
+    'BrowserWidget',
+    'DisplayWidget',
+    'UnicodeDisplayWidget',
+    'TextWidget',
+    'BytesWidget',
+    'TextAreaWidget',
+    'BytesAreaWidget',
+    'PasswordWidget',
+    'FileWidget',
+    'ASCIIWidget',
+    'ASCIIAreaWidget',
+    'IntWidget',
+    'FloatWidget',
+    'DecimalWidget',
+    'DatetimeWidget',
+    'DateWidget',
+    'DatetimeI18nWidget',
+    'DateI18nWidget',
+    'DatetimeDisplayWidget',
+    'DateDisplayWidget',
+    'BytesDisplayWidget',
+    'ASCIIDisplayWidget',
+    'URIDisplayWidget',
+    'CheckBoxWidget',
+    'BooleanRadioWidget',
+    'BooleanSelectWidget',
+    'BooleanDropdownWidget',
+    'ItemDisplayWidget',
+    'ItemsMultiDisplayWidget',
+    'SetDisplayWidget',
+    'ListDisplayWidget',
+    'ChoiceDisplayWidget',
+    'ChoiceInputWidget',
+    'CollectionDisplayWidget',
+    'CollectionInputWidget',
+    'ChoiceCollectionDisplayWidget',
+    'ChoiceCollectionInputWidget',
+    'SelectWidget',
+    'DropdownWidget',
+    'RadioWidget',
+    'MultiSelectWidget',
+    'MultiSelectSetWidget',
+    'MultiSelectFrozenSetWidget',
+    'MultiCheckBoxWidget',
+    'OrderedMultiSelectWidget',
+    'SequenceWidget',
+    'TupleSequenceWidget',
+    'ListSequenceWidget',
+    'SequenceDisplayWidget',
+    'ObjectWidget',
+]

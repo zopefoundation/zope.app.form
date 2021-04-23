@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""API Documentation macros
-
-$Id$
-"""
+"""API Documentation macros"""
 __docformat__ = 'restructuredtext'
 
 from zope.component import getMultiAdapter
@@ -22,9 +19,9 @@ from zope.interface import implementer
 from zope.interface.common.mapping import IItemMapping
 from zope.publisher.browser import BrowserView
 
+
 @implementer(IItemMapping)
 class FormMacros(BrowserView):
-
 
     macro_pages = (
         'view_macros',

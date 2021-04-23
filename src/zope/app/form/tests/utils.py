@@ -11,14 +11,12 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Utilities for testing form machinery
-
-$Id$
-"""
+"""Utilities for testing form machinery"""
 from zope.interface.interfaces import IMethod
-from zope.security.interfaces import ForbiddenAttribute, Unauthorized
+from zope.security.interfaces import Unauthorized
 import zope.security.checker
 from zope.schema import getFieldsInOrder
+
 
 class DummyChecker(object):
     """a checker for testing that requires explicit declarations
@@ -35,21 +33,26 @@ class DummyChecker(object):
     will cause ForbiddenAttribute to be raised when the name is checked, as
     with the real zope.security checkers.
     """
+
     def __init__(self, getnames, setnames):
         self.getnames = getnames
         self.setnames = setnames
+
     def check_getattr(self, obj, name):
         if name not in zope.security.checker._available_by_default:
             val = self.getnames[name]
             if not val:
                 raise Unauthorized
     check = check_getattr
+
     def check_setattr(self, obj, name):
         val = self.setnames[name]
         if not val:
             raise Unauthorized
+
     def proxy(self, value):
         return value
+
 
 def SchemaChecker(schema, readonly=False):
     """returns a checker that allows read and write access to fields in schema.
@@ -65,6 +68,7 @@ def SchemaChecker(schema, readonly=False):
                 set[name] = True
     assert not readonly
     return DummyChecker(get, set)
+
 
 def securityWrap(ob, schema, readonly=False):
     return zope.security.checker.Proxy(ob, SchemaChecker(schema, readonly))

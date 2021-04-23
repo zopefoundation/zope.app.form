@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Test form i18n
-
-$Id$
-"""
+"""Test form i18n"""
 
 import re
 import unittest
@@ -41,27 +38,28 @@ class IFieldContent(Interface):
         description=_(u"A short description of the event."),
         default=u"",
         required=True
-        )
+    )
 
     description = Text(
         title=_(u"Description"),
         description=_(u"A long description of the event."),
         default=u"",
         required=False
-        )
+    )
 
     somenumber = Int(
         title=_(u"Some number"),
         default=0,
         required=False
-        )
+    )
 
     somelist = List(
         title=_(u"Some List"),
         value_type=TextLine(title=_(u"Some item")),
         default=[],
         required=False
-        )
+    )
+
 
 @implementer(IFieldContent)
 class FieldContent(Persistent):
@@ -70,11 +68,13 @@ class FieldContent(Persistent):
 
 checker = renormalizing.RENormalizing([
     (re.compile(r"HTTP/1\.0 200 .*"), "HTTP/1.1 200 OK"),
-    ])
+])
+
 
 def test_suite():
     def setUp(test):
         wsgi_app = AppFormLayer.make_wsgi_app()
+
         def _http(query_str, *args, **kwargs):
             # Strip leading \n
             query_str = query_str.lstrip()
@@ -95,7 +95,3 @@ def test_suite():
     return unittest.TestSuite([
         i18n,
     ])
-
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')

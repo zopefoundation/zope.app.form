@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Support for display-only pages based on schema.
-
-$Id$
-"""
+"""Support for display-only pages based on schema."""
 __docformat__ = 'restructuredtext'
 
 import zope.component
@@ -27,6 +24,7 @@ from zope.security.checker import defineChecker, NamesChecker
 from zope.app.form.utility import setUpDisplayWidgets
 from zope.browserpage import ViewPageTemplateFile
 from zope.browserpage.simpleviewclass import SimpleViewClass
+
 
 class DisplayView(BrowserView):
     """Simple display-view base class.

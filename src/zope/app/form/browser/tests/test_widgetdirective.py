@@ -11,9 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Tests for the <widget> subdirective for the generated form pages.
-
-"""
+"""Tests for the <widget> subdirective for the generated form pages."""
 import unittest
 import doctest
 
@@ -38,7 +36,8 @@ class IContent(zope.interface.Interface):
         title=u"Field",
         description=u"Sample input field",
         required=False,
-        )
+    )
+
 
 @zope.interface.implementer(IContent)
 class Content(object):
@@ -49,6 +48,7 @@ class Content(object):
     __name__ = "sample-content"
 
     field = None
+
 
 @zope.interface.implementer(IAdding)
 class Adding(object):

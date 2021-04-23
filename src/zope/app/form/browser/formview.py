@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Form View Classes
-
-$Id$
-"""
+"""Form View Classes"""
 __docformat__ = 'restructuredtext'
 
 import transaction
@@ -44,7 +41,8 @@ class FormView(EditView):
 
         This method should return a dictionary mapping field names to values.
         """
-        raise NotImplementedError('Must be implemented by a specific form class')
+        raise NotImplementedError(
+            'Must be implemented by a specific form class')
 
     def setData(self, data):
         """Set the data gotten from a form.
@@ -53,7 +51,8 @@ class FormView(EditView):
 
         May return a status message.
         """
-        raise NotImplementedError('Must be implemented by a specific form class')
+        raise NotImplementedError(
+            'Must be implemented by a specific form class')
 
     def _setUpWidgets(self):
         self.data = Data(self.getData())
@@ -73,7 +72,7 @@ class FormView(EditView):
             try:
                 changed = applyWidgetsChanges(
                     self, self.schema, target=self.data, names=self.fieldNames)
-            except WidgetsError as errors: # pragma: no cover
+            except WidgetsError as errors:  # pragma: no cover
                 self.errors = errors
                 status = _("An error occurred.")
                 transaction.doom()

@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Test add-form
-
-$Id$
-"""
+"""Test add-form"""
 import unittest
 
 from zope.browser.interfaces import IAdding
@@ -24,7 +21,8 @@ from zope.component.interfaces import IFactory
 from zope.interface.interfaces import IComponentLookup
 from zope.component.factory import Factory
 from zope.interface import Interface, implementer
-from zope.lifecycleevent.interfaces import IObjectCreatedEvent, IObjectModifiedEvent
+from zope.lifecycleevent.interfaces import IObjectCreatedEvent
+from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from zope.publisher.browser import TestRequest
 from zope.publisher.interfaces.browser import IBrowserRequest
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
@@ -46,6 +44,7 @@ from zope.app.form.browser.tests.test_editview import FooBarAdapter
 from zope.component.testing import PlacelessSetup as CAPlacelessSetup
 from zope.component.eventtesting import PlacelessSetup as EventPlacelessSetup
 
+
 class PlacelessSetup(CAPlacelessSetup, EventPlacelessSetup):
 
     def setUp(self, doctesttest=None):
@@ -58,7 +57,8 @@ class Context(object):
     def action(self, discriminator, callable, args=(), kw={}):
         self.last_action = (discriminator, callable, args, kw)
 
-class I(Interface):
+
+class ITest(Interface):
 
     name = TextLine()
     first = TextLine()
@@ -69,7 +69,8 @@ class I(Interface):
     extra1 = TextLine()
     extra2 = TextLine(required=False)
 
-@implementer(I)
+
+@implementer(ITest)
 class C(object):
 
     def __init__(self, *args, **kw):
@@ -78,6 +79,7 @@ class C(object):
 
     def getfoo(self): return self._foo
     def setfoo(self, v): self._foo = v
+
 
 class V(object):
     name_widget = CustomWidgetFactory(Text)
@@ -88,6 +90,7 @@ class V(object):
     getfoo_widget = CustomWidgetFactory(Text)
     extra1_widget = CustomWidgetFactory(Text)
     extra2_widget = CustomWidgetFactory(Text)
+
 
 class FooV(object):
     bar_widget = CustomWidgetFactory(Text)
@@ -104,6 +107,7 @@ class SampleData(object):
     extra1 = u"extra1"
     extra2 = u"extra2"
 
+
 class Test(PlacelessSetup, unittest.TestCase):
 
     def setUp(self):
@@ -111,12 +115,13 @@ class Test(PlacelessSetup, unittest.TestCase):
         super(Test, self).setUp()
         ztapi.provideAdapter(IFoo, IBar, FooBarAdapter)
 
-    def _invoke_add(self, schema=I, name="addthis", permission="zope.Public",
+    def _invoke_add(self, schema=ITest, name="addthis",
+                    permission="zope.Public",
                     label="Add this", content_factory=C, class_=V,
                     arguments=['first', 'last'], keyword_arguments=['email'],
                     set_before_add=['getfoo'], set_after_add=['extra1'],
                     fields=None):
-        """ Call the 'add' factory to process arguments into 'args'."""
+        """Call the 'add' factory to process arguments into 'args'."""
         AddFormDirective(self._context,
                          schema=schema,
                          name=name,
@@ -136,8 +141,17 @@ class Test(PlacelessSetup, unittest.TestCase):
         self._invoke_add()
         result1 = _context.last_action
         self._invoke_add(
-            fields="name first last email address getfoo extra1 extra2".split(),
-            )
+            fields=[
+                "name",
+                "first",
+                "last",
+                "email",
+                "address",
+                "getfoo",
+                "extra1",
+                "extra2",
+            ]
+        )
         result2 = _context.last_action
 
         self.assertEqual(result1, result2)
@@ -170,19 +184,19 @@ class Test(PlacelessSetup, unittest.TestCase):
 
         self.assertEqual(descriminator,
                          ('view', IAdding, 'addthis', IBrowserRequest,
-                         IDefaultBrowserLayer))
+                          IDefaultBrowserLayer))
 
         self.assertEqual(callable, AddViewFactory)
 
         (name, schema, label, permission, layer, template,
          default_template, bases, for_, fields, content_factory,
          arguments, keyword_arguments, set_before_add,
-         set_after_add)  = args
+         set_after_add) = args
 
         self.assertEqual(name, 'addthis')
-        self.assertEqual(schema, I)
+        self.assertEqual(schema, ITest)
         self.assertEqual(label, 'Add this')
-        self.assertEqual(permission, CheckerPublic) # 'zope.Public' translated
+        self.assertEqual(permission, CheckerPublic)  # 'zope.Public' translated
         self.assertEqual(layer, IDefaultBrowserLayer)
         self.assertEqual(template, 'add.pt')
         self.assertEqual(default_template, 'add.pt')
@@ -208,19 +222,19 @@ class Test(PlacelessSetup, unittest.TestCase):
 
         self.assertEqual(descriminator,
                          ('view', IAdding, 'addthis', IBrowserRequest,
-                         IDefaultBrowserLayer))
+                          IDefaultBrowserLayer))
 
         self.assertEqual(callable, AddViewFactory)
 
         (name, schema, label, permission, layer, template,
          default_template, bases, for_, fields, content_factory,
          arguments, keyword_arguments, set_before_add,
-         set_after_add)  = args
+         set_after_add) = args
 
         self.assertEqual(name, 'addthis')
-        self.assertEqual(schema, I)
+        self.assertEqual(schema, ITest)
         self.assertEqual(label, 'Add this')
-        self.assertEqual(permission, CheckerPublic) # 'zope.Public' translated
+        self.assertEqual(permission, CheckerPublic)  # 'zope.Public' translated
         self.assertEqual(layer, IDefaultBrowserLayer)
         self.assertEqual(template, 'add.pt')
         self.assertEqual(default_template, 'add.pt')
@@ -245,8 +259,6 @@ class Test(PlacelessSetup, unittest.TestCase):
         @implementer(IAdding)
         class Adding(object):
 
-
-
             def __init__(self, test):
                 self.test = test
 
@@ -257,22 +269,23 @@ class Test(PlacelessSetup, unittest.TestCase):
                     {'args': ("bar", "baz"),
                      'kw': {'email': 'baz@dot.com'},
                      '_foo': 'foo',
-                    })
+                     })
                 return ob
+
             def nextURL(self):
                 return "."
 
         adding = Adding(self)
         self._invoke_add()
         (descriminator, callable, args, kw) = self._context.last_action
-        factory = AddViewFactory(*args)
+        AddViewFactory(*args)
         request = TestRequest()
         view = getMultiAdapter((adding, request), name='addthis')
-        content = view.create('a',0,abc='def')
+        content = view.create('a', 0, abc='def')
 
         self.assertTrue(isinstance(content, C))
         self.assertEqual(content.args, ('a', 0))
-        self.assertEqual(content.kw, {'abc':'def'})
+        self.assertEqual(content.kw, {'abc': 'def'})
 
     def test_create_content_factory_id(self):
 
@@ -289,8 +302,9 @@ class Test(PlacelessSetup, unittest.TestCase):
                     {'args': ("bar", "baz"),
                      'kw': {'email': 'baz@dot.com'},
                      '_foo': 'foo',
-                    })
+                     })
                 return ob
+
             def nextURL(self):
                 return "."
 
@@ -301,14 +315,14 @@ class Test(PlacelessSetup, unittest.TestCase):
         adding = Adding(self)
         self._invoke_add(content_factory='C')
         (descriminator, callable, args, kw) = self._context.last_action
-        factory = AddViewFactory(*args)
+        AddViewFactory(*args)
         request = TestRequest()
         view = getMultiAdapter((adding, request), name='addthis')
-        content = view.create('a',0,abc='def')
+        content = view.create('a', 0, abc='def')
 
         self.assertTrue(isinstance(content, C))
         self.assertEqual(content.args, ('a', 0))
-        self.assertEqual(content.kw, {'abc':'def'})
+        self.assertEqual(content.kw, {'abc': 'def'})
 
     def test_createAndAdd(self):
 
@@ -325,15 +339,16 @@ class Test(PlacelessSetup, unittest.TestCase):
                     {'args': ("bar", "baz"),
                      'kw': {'email': 'baz@dot.com'},
                      '_foo': 'foo',
-                    })
+                     })
                 return ob
+
             def nextURL(self):
                 return "."
 
         adding = Adding(self)
         self._invoke_add()
         (descriminator, callable, args, kw) = self._context.last_action
-        factory = AddViewFactory(*args)
+        AddViewFactory(*args)
         request = TestRequest()
         view = getMultiAdapter((adding, request), name='addthis')
 
@@ -358,6 +373,7 @@ class Test(PlacelessSetup, unittest.TestCase):
                 self.ob = ob
                 self.test.assertEqual(ob.__dict__, {'foo': 'bar'})
                 return ob
+
             def nextURL(self):
                 return "."
 
@@ -368,9 +384,9 @@ class Test(PlacelessSetup, unittest.TestCase):
             arguments=None, keyword_arguments=None,
             set_before_add=["bar"], set_after_add=None,
             fields=None
-            )
+        )
         (descriminator, callable, args, kw) = self._context.last_action
-        factory = AddViewFactory(*args)
+        AddViewFactory(*args)
         request = TestRequest()
         view = getMultiAdapter((adding, request), name='addthis')
 
@@ -385,22 +401,22 @@ class Test(PlacelessSetup, unittest.TestCase):
         adding = Adding()
         self._invoke_add()
         (descriminator, callable, args, kw) = self._context.last_action
-        factory = AddViewFactory(*args)
+        AddViewFactory(*args)
         request = TestRequest()
 
         request.form.update(dict([
             ("field.%s" % k, v)
             for (k, v) in dict(SampleData.__dict__).items()
-            ]))
+        ]))
         request.form[Update] = ''
         view = getMultiAdapter((adding, request), name='addthis')
 
         # Add hooks to V
 
-        l=[None]
+        l_ = [None]
 
         def add(aself, ob):
-            l[0] = ob
+            l_[0] = ob
             self.assertEqual(
                 ob.__dict__,
                 {'args': ("bar", "baz"),
@@ -418,17 +434,17 @@ class Test(PlacelessSetup, unittest.TestCase):
 
             self.assertEqual(view.errors, ())
 
-            self.assertEqual(l[0].extra1, "extra1")
-            self.assertEqual(l[0].extra2, "extra2")
-            self.assertEqual(l[0].name, "foo")
-            self.assertEqual(l[0].address, "aa")
+            self.assertEqual(l_[0].extra1, "extra1")
+            self.assertEqual(l_[0].extra2, "extra2")
+            self.assertEqual(l_[0].name, "foo")
+            self.assertEqual(l_[0].address, "aa")
 
             self.assertEqual(request.response.getHeader("Location"), "next")
 
             # Verify that calling update again doesn't do anything.
-            l[0] = None
+            l_[0] = None
             self.assertEqual(view.update(), '')
-            self.assertEqual(l[0], None)
+            self.assertEqual(l_[0], None)
 
         finally:
             # Uninstall hooks
@@ -438,6 +454,3 @@ class Test(PlacelessSetup, unittest.TestCase):
 
 def test_suite():
     return unittest.makeSuite(Test)
-
-if __name__=='__main__':
-    unittest.main(defaultTest='test_suite')

@@ -21,9 +21,11 @@
 import os
 from setuptools import setup, find_packages
 
+
 def read(*rnames):
     with open(os.path.join(os.path.dirname(__file__), *rnames)) as f:
         return f.read()
+
 
 tests_require = [
     'zc.sourcefactory',
@@ -49,7 +51,7 @@ setup(name='zope.app.form',
           'Detailed documentation:\n'
           + '\n\n' +
           read('CHANGES.rst')
-          ),
+      ),
       keywords="zope3 form widget zcml",
       classifiers=[
           'Development Status :: 5 - Production/Stable',
@@ -64,6 +66,7 @@ setup(name='zope.app.form',
           'Programming Language :: Python :: 3.6',
           'Programming Language :: Python :: 3.7',
           'Programming Language :: Python :: 3.8',
+          'Programming Language :: Python :: 3.9',
           'Programming Language :: Python :: Implementation :: CPython',
           'Programming Language :: Python :: Implementation :: PyPy',
           'Natural Language :: English',
@@ -99,4 +102,4 @@ setup(name='zope.app.form',
       ],
       include_package_data=True,
       zip_safe=False,
-)
+      )

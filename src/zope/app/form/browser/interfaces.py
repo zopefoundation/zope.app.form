@@ -11,15 +11,10 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Form and Widget Interfaces
-
-$Id$
-"""
+"""Form and Widget Interfaces"""
 __docformat__ = 'restructuredtext'
 
 from zope.interface import Interface
-from zope.schema import TextLine, Bool
-from zope.formlib.interfaces import IWidget, IInputWidget
 
 # BBB: ITerms are also used by z3c.form and possibly other form
 # frameworks, so it was moved to zope.browser.interfaces and it's
@@ -27,8 +22,15 @@ from zope.formlib.interfaces import IWidget, IInputWidget
 from zope.browser.interfaces import ITerms
 
 from zope.formlib.interfaces import (
-    IBrowserWidget, ISimpleInputWidget, ITextBrowserWidget,
-    IWidgetInputErrorView, ISourceQueryView)
+    IBrowserWidget,
+    IInputWidget,
+    ISimpleInputWidget,
+    ISourceQueryView,
+    ITextBrowserWidget,
+    IWidget,
+    IWidgetInputErrorView,
+)
+
 
 class IFormCollaborationView(Interface):
     """Views that collaborate to create a single form.
@@ -114,3 +116,17 @@ class IAddFormCustomization(Interface):
         i.e. it delegates to the `IAdding` view.
         """
 
+
+__all__ = [
+    'IAddFormCustomization',
+    'IFormCollaborationView',
+    # BBB
+    'IBrowserWidget',
+    'ISimpleInputWidget',
+    'ISourceQueryView',
+    'ITerms',
+    'ITextBrowserWidget',
+    'IWidget',
+    'IWidgetInputErrorView',
+    'IInputWidget',
+]

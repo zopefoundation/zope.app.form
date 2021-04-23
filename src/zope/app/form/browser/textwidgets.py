@@ -11,32 +11,57 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Browser widgets with text-based input
-
-$Id$
-"""
+"""Browser widgets with text-based input"""
 # BBB implementation moved to zope.formlib.textwidgets
 from zope.formlib.textwidgets import (
-    escape,
-    TextWidget,
-    Bytes,
-    BytesWidget,
-    BytesDisplayWidget,
     ASCII,
-    ASCIIWidget,
-    ASCIIDisplayWidget,
-    URIDisplayWidget,
-    TextAreaWidget,
-    BytesAreaWidget,
     ASCIIAreaWidget,
-    PasswordWidget,
-    FileWidget,
-    IntWidget,
-    FloatWidget,
-    DecimalWidget,
-    DatetimeWidget,
-    DateWidget,
-    DateI18nWidget,
-    DatetimeI18nWidget,
+    ASCIIDisplayWidget,
+    ASCIIWidget,
+    Bytes,
+    BytesAreaWidget,
+    BytesDisplayWidget,
+    BytesWidget,
     DateDisplayWidget,
-    DatetimeDisplayWidget)
+    DateI18nWidget,
+    DateWidget,
+    DatetimeDisplayWidget,
+    DatetimeI18nWidget,
+    DatetimeWidget,
+    DecimalWidget,
+    FileWidget,
+    FloatWidget,
+    IntWidget,
+    PasswordWidget,
+    TextAreaWidget,
+    TextWidget,
+    URIDisplayWidget,
+    escape,
+)
+
+
+__all__ = [
+    'ASCII',
+    'ASCIIAreaWidget',
+    'ASCIIDisplayWidget',
+    'ASCIIWidget',
+    'Bytes',
+    'BytesAreaWidget',
+    'BytesDisplayWidget',
+    'BytesWidget',
+    'DateDisplayWidget',
+    'DateI18nWidget',
+    'DateWidget',
+    'DatetimeDisplayWidget',
+    'DatetimeI18nWidget',
+    'DatetimeWidget',
+    'DecimalWidget',
+    'FileWidget',
+    'FloatWidget',
+    'IntWidget',
+    'PasswordWidget',
+    'TextAreaWidget',
+    'TextWidget',
+    'URIDisplayWidget',
+    'escape',
+]

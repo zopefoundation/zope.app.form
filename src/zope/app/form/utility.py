@@ -29,8 +29,6 @@ specific parameters.
 This module provides some utility functions that provide some of the
 functionality of formulator forms that isn't handled by schema,
 fields, or widgets.
-
-$Id$
 """
 __docformat__ = 'restructuredtext'
 
@@ -50,6 +48,7 @@ from zope.formlib.utility import (
     _fieldlist,
     no_value,
     _widgetHasStickyValue)
+
 
 def setUpEditWidgets(view, schema, source=None, prefix=None,
                      ignoreStickyValues=False, names=None, context=None,
@@ -124,6 +123,7 @@ def setUpEditWidgets(view, schema, source=None, prefix=None,
         res_names.append(name)
     return res_names
 
+
 def setUpDisplayWidgets(view, schema, source=None, prefix=None,
                         ignoreStickyValues=False, names=None, context=None,
                         degradeDisplay=False):
@@ -165,6 +165,7 @@ def setUpDisplayWidgets(view, schema, source=None, prefix=None,
         res_names.append(name)
     return res_names
 
+
 def viewHasInput(view, schema, names=None):
     """Returns ``True`` if the any of the view's widgets contain user input.
 
@@ -173,9 +174,10 @@ def viewHasInput(view, schema, names=None):
     `names` can be specified to provide a subset of these fields.
     """
     for name, field in _fieldlist(names, schema):
-        if  getattr(view, name + '_widget').hasInput():
+        if getattr(view, name + '_widget').hasInput():
             return True
     return False
+
 
 def getWidgetsData(view, schema, names=None):
     """Returns user entered data for a set of `schema` fields.
@@ -225,3 +227,17 @@ def getWidgetsData(view, schema, names=None):
         raise WidgetsError(errors, widgetsData=result)
 
     return result
+
+
+__all__ = [
+    # BBB
+    '_widgetHasStickyValue',
+    'applyWidgetsChanges',
+    'setUpWidget',
+    'setUpWidgets',
+    # From this module
+    'getWidgetsData',
+    'setUpDisplayWidgets',
+    'setUpEditWidgets',
+    'viewHasInput',
+]

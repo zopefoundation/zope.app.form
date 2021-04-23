@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Edit View Classes
-
-$Id$
-"""
+"""Edit View Classes"""
 __docformat__ = 'restructuredtext'
 
 from datetime import datetime
@@ -36,6 +33,7 @@ from zope.formlib.interfaces import WidgetsError
 from zope.app.form.utility import setUpEditWidgets, applyWidgetsChanges
 from zope.app.form.browser.i18n import _
 from zope.app.form.browser.submit import Update
+
 
 class EditView(BrowserView):
     """Simple edit-view base class
@@ -71,7 +69,7 @@ class EditView(BrowserView):
             widget.setPrefix(prefix)
 
     def widgets(self):
-        return [getattr(self, name+'_widget')
+        return [getattr(self, name + '_widget')
                 for name in self.fieldNames]
 
     def changed(self):
@@ -92,7 +90,8 @@ class EditView(BrowserView):
         if Update in self.request:
             changed = False
             try:
-                changed = applyWidgetsChanges(self, self.schema,
+                changed = applyWidgetsChanges(
+                    self, self.schema,
                     target=content, names=self.fieldNames)
                 # We should not generate events when an adapter is used.
                 # That's the adapter's job.

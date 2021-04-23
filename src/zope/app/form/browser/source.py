@@ -11,22 +11,37 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Source widgets support
-
-$Id$
-"""
+"""Source widgets support"""
 # BBB
 from zope.formlib.source import (
+    IterableSourceVocabulary,
     SourceDisplayWidget,
-    SourceSequenceDisplayWidget,
+    SourceDropdownWidget,
     SourceInputWidget,
     SourceListInputWidget,
-    IterableSourceVocabulary,
-    SourceSelectWidget,
-    SourceDropdownWidget,
-    SourceRadioWidget,
+    SourceMultiCheckBoxWidget,
+    SourceMultiSelectFrozenSetWidget,
+    SourceMultiSelectSetWidget,
     SourceMultiSelectWidget,
     SourceOrderedMultiSelectWidget,
-    SourceMultiSelectSetWidget,
-    SourceMultiSelectFrozenSetWidget,
-    SourceMultiCheckBoxWidget)
+    SourceRadioWidget,
+    SourceSelectWidget,
+    SourceSequenceDisplayWidget,
+)
+
+
+__all__ = [
+    'IterableSourceVocabulary',
+    'SourceDisplayWidget',
+    'SourceDropdownWidget',
+    'SourceInputWidget',
+    'SourceListInputWidget',
+    'SourceMultiCheckBoxWidget',
+    'SourceMultiSelectFrozenSetWidget',
+    'SourceMultiSelectSetWidget',
+    'SourceMultiSelectWidget',
+    'SourceOrderedMultiSelectWidget',
+    'SourceRadioWidget',
+    'SourceSelectWidget',
+    'SourceSequenceDisplayWidget',
+]

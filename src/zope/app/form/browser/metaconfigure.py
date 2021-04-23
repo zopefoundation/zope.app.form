@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Configuration handlers for forms and widgets
-
-$Id$
-"""
+"""Configuration handlers for forms and widgets"""
 __docformat__ = 'restructuredtext'
 
 import os
@@ -40,6 +37,7 @@ from zope.app.form.browser.add import AddView, AddViewFactory
 from zope.app.form.browser.editview import EditView, EditViewFactory
 from zope.app.form.browser.formview import FormView
 from zope.app.form.browser.schemadisplay import DisplayView, DisplayViewFactory
+
 
 class BaseFormDirective(object):
 
@@ -240,9 +238,10 @@ class AddFormDirective(BaseFormDirective):
             discriminator=self._discriminator(),
             callable=AddViewFactory,
             args=self._args()+(self.content_factory, self.arguments,
-                                 self.keyword_arguments,
-                                 self.set_before_add, self.set_after_add),
-            )
+                               self.keyword_arguments,
+                               self.set_before_add, self.set_after_add),
+        )
+
 
 class EditFormDirectiveBase(BaseFormDirective):
 
@@ -256,6 +255,7 @@ class EditFormDirectiveBase(BaseFormDirective):
             iface = IInputWidget
         return zope.component.getMultiAdapter(
             (field, request), iface)
+
 
 class EditFormDirective(EditFormDirectiveBase):
 
@@ -278,6 +278,7 @@ class EditFormDirective(EditFormDirectiveBase):
             args=self._args(),
         )
 
+
 class FormDirective(EditFormDirective):
 
     view = FormView
@@ -286,7 +287,7 @@ class FormDirective(EditFormDirective):
         super(FormDirective, self).__init__(_context, **kwargs)
         attrs = self.class_.__dict__.keys()
         if 'template' not in kwargs.keys() and 'update' not in attrs and \
-               ('getData' not in attrs or 'setData' not in attrs):
+                ('getData' not in attrs or 'setData' not in attrs):
             raise ZopeXMLConfigurationError(
                 "You must specify a class that implements `getData()` "
                 "and `setData()`, if you do not overwrite `update()`.",
@@ -304,10 +305,10 @@ class SubeditFormDirective(EditFormDirectiveBase):
     def __call__(self):
         self._processWidgets()
         self._context.action(
-            discriminator = self._discriminator(),
-            callable = EditViewFactory,
-            args = self._args()+(self.fulledit_path, self.fulledit_label),
-            )
+            discriminator=self._discriminator(),
+            callable=EditViewFactory,
+            args=self._args()+(self.fulledit_path, self.fulledit_label),
+        )
 
 
 class SchemaDisplayDirective(EditFormDirective):
@@ -319,7 +320,7 @@ class SchemaDisplayDirective(EditFormDirective):
         self._processWidgets()
         self._handle_menu()
         self._context.action(
-            discriminator = self._discriminator(),
-            callable = DisplayViewFactory,
-            args = self._args()+(self.menu,)
-            )
+            discriminator=self._discriminator(),
+            callable=DisplayViewFactory,
+            args=self._args()+(self.menu,)
+        )

@@ -29,3 +29,18 @@ from zope.formlib.interfaces import (IWidgetInputError,
                                      IInputWidget,
                                      IDisplayWidget,
                                      IWidgetFactory)
+
+
+__all__ = [
+    'ConversionError',
+    'ErrorContainer',
+    'IDisplayWidget',
+    'IInputWidget',
+    'IWidget',
+    'IWidgetFactory',
+    'IWidgetInputError',
+    'InputErrors',
+    'MissingInputError',
+    'WidgetInputError',
+    'WidgetsError',
+]

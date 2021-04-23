@@ -11,37 +11,63 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Browser widgets for items
-
-$Id$
-"""
+"""Browser widgets for items"""
 __docformat__ = 'restructuredtext'
 
 # BBB the implementation has moved to zope.formlib.itemswidgets
 from zope.formlib.itemswidgets import (
+    ChoiceCollectionDisplayWidget,
+    ChoiceCollectionInputWidget,
     ChoiceDisplayWidget,
     ChoiceInputWidget,
     CollectionDisplayWidget,
     CollectionInputWidget,
-    ChoiceCollectionDisplayWidget,
-    ChoiceCollectionInputWidget,
-    TranslationHook,
-    ItemsWidgetBase,
-    SingleDataHelper,
-    MultiDataHelper,
-    ItemsWidgetBase,
-    ItemDisplayWidget,
-    ItemsMultiDisplayWidget,
-    ListDisplayWidget,
-    SetDisplayWidget,
-    ItemsEditWidgetBase,
-    EXPLICIT_EMPTY_SELECTION,
-    SelectWidget,
     DropdownWidget,
-    RadioWidget,
+    EXPLICIT_EMPTY_SELECTION,
+    ItemDisplayWidget,
+    ItemsEditWidgetBase,
+    ItemsMultiDisplayWidget,
     ItemsMultiEditWidgetBase,
-    MultiSelectWidget,
-    MultiSelectSetWidget,
+    ItemsWidgetBase,
+    ListDisplayWidget,
+    MultiCheckBoxWidget,
+    MultiDataHelper,
     MultiSelectFrozenSetWidget,
+    MultiSelectSetWidget,
+    MultiSelectWidget,
     OrderedMultiSelectWidget,
-    MultiCheckBoxWidget)
+    RadioWidget,
+    SelectWidget,
+    SetDisplayWidget,
+    SingleDataHelper,
+    TranslationHook,
+)
+
+
+__all__ = [
+    'ChoiceCollectionDisplayWidget',
+    'ChoiceCollectionInputWidget',
+    'ChoiceDisplayWidget',
+    'ChoiceInputWidget',
+    'CollectionDisplayWidget',
+    'CollectionInputWidget',
+    'DropdownWidget',
+    'EXPLICIT_EMPTY_SELECTION',
+    'ItemDisplayWidget',
+    'ItemsEditWidgetBase',
+    'ItemsMultiDisplayWidget',
+    'ItemsMultiEditWidgetBase',
+    'ItemsWidgetBase',
+    'ListDisplayWidget',
+    'MultiCheckBoxWidget',
+    'MultiDataHelper',
+    'MultiSelectFrozenSetWidget',
+    'MultiSelectSetWidget',
+    'MultiSelectWidget',
+    'OrderedMultiSelectWidget',
+    'RadioWidget',
+    'SelectWidget',
+    'SetDisplayWidget',
+    'SingleDataHelper',
+    'TranslationHook',
+]

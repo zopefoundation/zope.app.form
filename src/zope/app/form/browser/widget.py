@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Browser Widget Definitions
-
-$Id$
-"""
+"""Browser Widget Definitions"""
 __docformat__ = 'restructuredtext'
 
 # BBB
@@ -28,4 +25,18 @@ from zope.formlib.widget import (
     renderElement,
     escape,
     setUp,
-    tearDown)
+    tearDown,
+)
+
+__all__ = [
+    'quoteattr',
+    'BrowserWidget',
+    'SimpleInputWidget',
+    'DisplayWidget',
+    'UnicodeDisplayWidget',
+    'renderTag',
+    'renderElement',
+    'escape',
+    'setUp',
+    'tearDown',
+]

@@ -11,10 +11,7 @@
 # FOR A PARTICULAR PURPOSE.
 #
 ##############################################################################
-"""Tests for the ZCML Documentation Module
-
-$Id$
-"""
+"""Tests for the ZCML Documentation Module"""
 import unittest
 import doctest
 
@@ -47,7 +44,4 @@ def test_suite():
                              setUp=setUp, tearDown=testing.tearDown,
                              optionflags=doctest.NORMALIZE_WHITESPACE
                              | doctest.IGNORE_EXCEPTION_DETAIL),
-        ))
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')
+    ))
