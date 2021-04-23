@@ -454,7 +454,3 @@ class Test(PlacelessSetup, unittest.TestCase):
 
 def test_suite():
     return unittest.makeSuite(Test)
-
-
-if __name__ == '__main__':
-    unittest.main(defaultTest='test_suite')

@@ -309,7 +309,3 @@ class Test(PlacelessSetup, unittest.TestCase):
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
-
-
-if __name__ == '__main__':
-    unittest.TextTestRunner().run(test_suite())
