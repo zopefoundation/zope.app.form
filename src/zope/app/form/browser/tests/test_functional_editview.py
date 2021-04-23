@@ -38,6 +38,7 @@ class IFoo(Interface):
     optional_text = TextLine(required=False)
     required_text = TextLine(required=True)
 
+
 @implementer(IFoo)
 class Foo(Persistent):
     pass
@@ -63,9 +64,9 @@ class Test(unittest.TestCase):
             response = self._testapp.post(path, params=form,
                                           extra_environ=env, headers=headers)
         else:
-            response = self._testapp.get(path, extra_environ=env, headers=headers)
+            response = self._testapp.get(
+                path, extra_environ=env, headers=headers)
         return response
-
 
     def test_rollback_on_error(self):
         """Tests rollback when a widget error occurs.
@@ -83,8 +84,8 @@ class Test(unittest.TestCase):
         old_update = EditView.update
         try:
             def new_update(self):
-                # This update changes something after form validation has failed.
-                # Side effects like this should not be committed.
+                # This update changes something after form validation has
+                # failed. Side effects like this should not be committed.
                 # http://www.zope.org/Collectors/Zope3-dev/655
                 result = old_update(self)
                 self.context.required_text = u'changed after form validation'
@@ -111,5 +112,6 @@ class Test(unittest.TestCase):
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')

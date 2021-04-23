@@ -47,7 +47,8 @@ def test_suite():
                              setUp=setUp, tearDown=testing.tearDown,
                              optionflags=doctest.NORMALIZE_WHITESPACE
                              | doctest.IGNORE_EXCEPTION_DETAIL),
-        ))
+    ))
+
 
 if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')

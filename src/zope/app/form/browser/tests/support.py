@@ -15,10 +15,11 @@
 
 $Id$
 """
-import re
 from zope.configuration import xmlconfig
-from zope.formlib.tests.support import (VerifyResults,
-                                        patternExists)
+
+# This import is used in tests.
+from zope.formlib.tests.support import patternExists  # noqa: F401
+
 
 def registerEditForm(schema, widgets=()):
     """Registers an edit form for the specified schema.
@@ -28,7 +29,7 @@ def registerEditForm(schema, widgets=()):
     widget attributes (e.g. text field size, rows, cols, etc.)
     """
     widgetsXml = []
-    for field in widgets: # pragma: no cover
+    for field in widgets:  # pragma: no cover
         widgetsXml.append('<widget field="%s"' % field)
         for attr in widgets[field]:
             widgetsXml.append(' %s="%s"' % (attr, widgets[field][attr]))

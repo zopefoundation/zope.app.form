@@ -22,4 +22,11 @@ from zope.formlib.boolwidgets import (
     BooleanSelectWidget,
     BooleanDropdownWidget,
     BooleanDisplayWidget)
-    
+
+__all__ = [
+    'CheckBoxWidget',
+    'BooleanRadioWidget',
+    'BooleanSelectWidget',
+    'BooleanDropdownWidget',
+    'BooleanDisplayWidget',
+]

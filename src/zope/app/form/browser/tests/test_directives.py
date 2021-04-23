@@ -42,6 +42,7 @@ template = """<configure
 
 request = TestRequest()
 
+
 class Schema(Interface):
 
     text = TextLine(
@@ -49,14 +50,19 @@ class Schema(Interface):
         description=u'Nice text',
         required=False)
 
-class IC(Schema): pass
+
+class IC(Schema):
+    pass
+
 
 @implementer(IC)
 class Ob(object):
     pass
 
+
 unwrapped_ob = Ob()
 ob = utils.securityWrap(unwrapped_ob, IC)
+
 
 class ISomeWidget(Interface):
     displayWidth = Int(
@@ -64,9 +70,11 @@ class ISomeWidget(Interface):
         default=20,
         required=True)
 
+
 @implementer(ISomeWidget)
 class SomeWidget(TextWidget):
     pass
+
 
 class Test(PlacelessSetup, unittest.TestCase):
 
@@ -228,7 +236,6 @@ class Test(PlacelessSetup, unittest.TestCase):
         self.assertEqual(view.text_widget.extra, u'foo')
         self.assertEqual(view.text_widget.displayWidth, 30)
 
-
     def testEditFormWithWidget(self):
         self.assertEqual(
             component.queryMultiAdapter((ob, request), name='edit.html'),
@@ -305,6 +312,7 @@ class Test(PlacelessSetup, unittest.TestCase):
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
+
 
 if __name__ == '__main__':
     unittest.TextTestRunner().run(test_suite())

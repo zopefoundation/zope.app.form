@@ -38,7 +38,8 @@ class IContent(zope.interface.Interface):
         title=u"Field",
         description=u"Sample input field",
         required=False,
-        )
+    )
+
 
 @zope.interface.implementer(IContent)
 class Content(object):
@@ -49,6 +50,7 @@ class Content(object):
     __name__ = "sample-content"
 
     field = None
+
 
 @zope.interface.implementer(IAdding)
 class Adding(object):

@@ -20,4 +20,13 @@ from zope.formlib.tests.test_browserwidget import (
     BrowserWidgetTest,
     SimpleInputWidgetTest,
     TestWidget,
-    Test)
+    Test,
+)
+
+
+__all__ = [
+    'BrowserWidgetTest',
+    'SimpleInputWidgetTest',
+    'TestWidget',
+    'Test',
+]

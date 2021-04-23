@@ -28,4 +28,18 @@ from zope.formlib.widget import (
     renderElement,
     escape,
     setUp,
-    tearDown)
+    tearDown,
+)
+
+__all__ = [
+    'quoteattr',
+    'BrowserWidget',
+    'SimpleInputWidget',
+    'DisplayWidget',
+    'UnicodeDisplayWidget',
+    'renderTag',
+    'renderElement',
+    'escape',
+    'setUp',
+    'tearDown',
+]

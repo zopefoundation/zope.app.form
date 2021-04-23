@@ -37,6 +37,7 @@ from zope.browserpage import ViewPageTemplateFile
 from zope.app.form.browser.editview import EditView
 from zope.app.form.browser.submit import Update
 
+
 class AddView(EditView):
     """Simple edit-view base class.
 
@@ -137,14 +138,17 @@ class AddView(EditView):
         return self.context.nextURL()
 
 # helper for factory resp. content_factory handling
+
+
 def _getFactory(self):
     # get factory or factory id
     factory = self.__dict__.get('_factory_or_id', self._factory_or_id)
 
-    if type(factory) is str: # factory id
+    if type(factory) is str:  # factory id
         return zope.component.getUtility(IFactory, factory, self.context)
     else:
         return factory
+
 
 def _setFactory(self, value):
     self.__dict__['_factory_or_id'] = value
@@ -155,7 +159,7 @@ def AddViewFactory(name, schema, label, permission, layer,
                    fields, content_factory, arguments,
                    keyword_arguments, set_before_add, set_after_add):
 
-    class_  = SimpleViewClass(
+    class_ = SimpleViewClass(
         template, used_for=schema, bases=bases, name=name)
 
     class_.schema = schema
@@ -172,10 +176,10 @@ def AddViewFactory(name, schema, label, permission, layer,
 
     defineChecker(class_,
                   NamesChecker(
-                    ("__call__", "__getitem__",
-                     "browserDefault", "publishTraverse"),
-                    permission,
-                    )
+                      ("__call__", "__getitem__",
+                       "browserDefault", "publishTraverse"),
+                      permission,
+                  )
                   )
     if layer is None:
         layer = IDefaultBrowserLayer

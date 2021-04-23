@@ -20,3 +20,8 @@ $Id$
 from zope.formlib.objectwidget import (
     ObjectWidgetView,
     ObjectWidget)
+
+__all__ = [
+    'ObjectWidgetView',
+    'ObjectWidget',
+]

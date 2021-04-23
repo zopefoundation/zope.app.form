@@ -28,6 +28,7 @@ from zope.app.form.utility import setUpDisplayWidgets
 from zope.browserpage import ViewPageTemplateFile
 from zope.browserpage.simpleviewclass import SimpleViewClass
 
+
 class DisplayView(BrowserView):
     """Simple display-view base class.
 

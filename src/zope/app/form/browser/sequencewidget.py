@@ -17,7 +17,15 @@ $Id$
 """
 # BBB implementation moved to zope.formlib.sequencewidget
 from zope.formlib.sequencewidget import (
+    ListSequenceWidget,
+    SequenceDisplayWidget,
     SequenceWidget,
     TupleSequenceWidget,
-    ListSequenceWidget,
-    SequenceDisplayWidget)
+)
+
+__all__ = [
+    'ListSequenceWidget',
+    'SequenceDisplayWidget',
+    'SequenceWidget',
+    'TupleSequenceWidget',
+]

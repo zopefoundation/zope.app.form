@@ -18,3 +18,9 @@ $Id$
 __docformat__ = 'restructuredtext'
 # BBB
 from zope.formlib.widget import Widget, InputWidget, CustomWidgetFactory
+
+__all__ = [
+    'Widget',
+    'InputWidget',
+    'CustomWidgetFactory',
+]

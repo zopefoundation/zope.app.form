@@ -33,24 +33,27 @@ from zope.app.form.browser.submit import Update
 from zope.formlib.interfaces import IInputWidget
 from zope.app.form.tests import utils
 
-class I(Interface):
+
+class I(Interface):  # noqa: E742 ambiguous class definition 'I'
     foo = TextLine(title=u"Foo")
     bar = TextLine(title=u"Bar")
-    a   = TextLine(title=u"A")
-    b   = TextLine(title=u"B", min_length=0, required=False)
+    a = TextLine(title=u"A")
+    b = TextLine(title=u"B", min_length=0, required=False)
     getbaz, setbaz = accessors(TextLine(title=u"Baz"))
+
 
 class EV(EditView):
     schema = I
     object_factories = []
+
 
 @implementer(I)
 class C(object):
 
     foo = u"c foo"
     bar = u"c bar"
-    a   = u"c a"
-    b   = u"c b"
+    a = u"c a"
+    b = u"c b"
     __Security_checker__ = utils.SchemaChecker(I)
 
     _baz = u"c baz"
@@ -61,8 +64,10 @@ class C(object):
 class IFoo(Interface):
     foo = TextLine(title=u"Foo")
 
+
 class IBar(Interface):
     bar = TextLine(title=u"Bar")
+
 
 @implementer(IFoo)
 class Foo(object):
@@ -70,6 +75,7 @@ class Foo(object):
     __Security_checker__ = utils.SchemaChecker(IFoo)
 
     foo = u'Foo foo'
+
 
 @implementer(IFoo)
 class ConformFoo(object):
@@ -79,6 +85,7 @@ class ConformFoo(object):
     def __conform__(self, interface):
         if interface is IBar:
             return OtherFooBarAdapter(self)
+
 
 @implementer(IBar, ILocation)
 class FooBarAdapter(object):
@@ -95,12 +102,15 @@ class FooBarAdapter(object):
 
     __Security_checker__ = utils.SchemaChecker(IBar)
 
+
 class OtherFooBarAdapter(FooBarAdapter):
     pass
+
 
 class BarV(EditView):
     schema = IBar
     object_factories = []
+
 
 class Test(PlacelessSetup, unittest.TestCase):
 
@@ -116,7 +126,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         self.assertEqual(
             [w.name for w in v.widgets()],
             ['test.foo', 'test.bar', 'test.a', 'test.b', 'test.getbaz']
-            )
+        )
 
     def test_empty_prefix(self):
         v = EV(C(), TestRequest())
@@ -124,7 +134,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         self.assertEqual(
             [w.name for w in v.widgets()],
             ['foo', 'bar', 'a', 'b', 'getbaz']
-            )
+        )
 
     def test_fail_wo_adapter(self):
         c = Foo()
@@ -138,19 +148,19 @@ class Test(PlacelessSetup, unittest.TestCase):
         self.assertEqual(v.update(), '')
         self.assertEqual(c.foo, u'c foo')
         self.assertEqual(c.bar, u'c bar')
-        self.assertEqual(c.a  , u'c a')
-        self.assertEqual(c.b  , u'c b')
+        self.assertEqual(c.a, u'c a')
+        self.assertEqual(c.b, u'c b')
         self.assertEqual(c.getbaz(), u'c baz')
         request.form['field.foo'] = u'r foo'
         request.form['field.bar'] = u'r bar'
-        request.form['field.a']   = u'r a'
-        request.form['field.b']   = u'r b'
+        request.form['field.a'] = u'r a'
+        request.form['field.b'] = u'r b'
         request.form['field.getbaz'] = u'r baz'
         self.assertEqual(v.update(), '')
         self.assertEqual(c.foo, u'c foo')
         self.assertEqual(c.bar, u'c bar')
-        self.assertEqual(c.a  , u'c a')
-        self.assertEqual(c.b  , u'c b')
+        self.assertEqual(c.a, u'c a')
+        self.assertEqual(c.b, u'c b')
         self.assertEqual(c.getbaz(), u'c baz')
         self.assertFalse(getEvents())
 
@@ -168,8 +178,8 @@ class Test(PlacelessSetup, unittest.TestCase):
         self.assertTrue(message.startswith('Updated '), message)
         self.assertEqual(c.foo, u'r foo')
         self.assertEqual(c.bar, u'r bar')
-        self.assertEqual(c.a  , u'c a')
-        self.assertEqual(c.b  , u'c b') # missing from form - unchanged
+        self.assertEqual(c.a, u'c a')
+        self.assertEqual(c.b, u'c b')  # missing from form - unchanged
         self.assertEqual(c.getbaz(), u'r baz')
 
         # Verify that calling update multiple times has no effect
@@ -178,8 +188,8 @@ class Test(PlacelessSetup, unittest.TestCase):
         self.assertEqual(v.update(), message)
         self.assertEqual(c.foo, u'c foo')
         self.assertEqual(c.bar, u'c bar')
-        self.assertEqual(c.a  , u'c a')
-        self.assertEqual(c.b  , u'c b')
+        self.assertEqual(c.a, u'c a')
+        self.assertEqual(c.b, u'c b')
         self.assertEqual(c.getbaz(), u'c baz')
 
     def test_update_via_adapter(self):
@@ -203,10 +213,12 @@ class Test(PlacelessSetup, unittest.TestCase):
 
         f = ConformFoo()
         request = TestRequest()
-        v = BarV(f, request)
+        BarV(f, request)
+
 
 def test_suite():
     return unittest.defaultTestLoader.loadTestsFromName(__name__)
+
 
 if __name__ == '__main__':
     unittest.main(defaultTest='test_suite')
