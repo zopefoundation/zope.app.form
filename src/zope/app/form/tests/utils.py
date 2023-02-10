@@ -12,10 +12,10 @@
 #
 ##############################################################################
 """Utilities for testing form machinery"""
-from zope.interface.interfaces import IMethod
-from zope.security.interfaces import Unauthorized
 import zope.security.checker
+from zope.interface.interfaces import IMethod
 from zope.schema import getFieldsInOrder
+from zope.security.interfaces import Unauthorized
 
 
 class DummyChecker(object):

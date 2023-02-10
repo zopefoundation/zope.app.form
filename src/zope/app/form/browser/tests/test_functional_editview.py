@@ -13,21 +13,20 @@
 ##############################################################################
 """Editview tests"""
 import unittest
+
 import transaction
 from persistent import Persistent
-
-
-from zope.interface import Interface, implementer
+from webtest import TestApp
+from zope.interface import Interface
+from zope.interface import implementer
 from zope.schema import TextLine
 from zope.traversing.api import traverse
 
-from zope.app.form.browser.tests.support import registerEditForm
+from zope.app.form.browser.editview import EditView
 from zope.app.form.browser.tests.support import defineSecurity
 from zope.app.form.browser.tests.support import patternExists
-from zope.app.form.browser.editview import EditView
+from zope.app.form.browser.tests.support import registerEditForm
 from zope.app.form.testing import AppFormLayer
-
-from webtest import TestApp
 
 
 class IFoo(Interface):

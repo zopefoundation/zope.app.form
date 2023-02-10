@@ -14,20 +14,22 @@
 """Edit View Tests"""
 import unittest
 
-from zope.component.eventtesting import getEvents, clearEvents
+from zope.component.eventtesting import clearEvents
+from zope.component.eventtesting import getEvents
 from zope.component.testing import PlacelessSetup
-from zope.interface import Interface, implementer
+from zope.formlib.interfaces import IInputWidget
+from zope.interface import Interface
+from zope.interface import implementer
 from zope.location.interfaces import ILocation
 from zope.publisher.browser import TestRequest
-from zope.schema import TextLine, accessors
+from zope.schema import TextLine
+from zope.schema import accessors
 from zope.schema.interfaces import ITextLine
 
 import zope.app.form.testing as ztapi
-
 from zope.app.form.browser import TextWidget
 from zope.app.form.browser.editview import EditView
 from zope.app.form.browser.submit import Update
-from zope.formlib.interfaces import IInputWidget
 from zope.app.form.tests import utils
 
 

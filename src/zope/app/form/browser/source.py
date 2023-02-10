@@ -13,21 +13,19 @@
 ##############################################################################
 """Source widgets support"""
 # BBB
-from zope.formlib.source import (
-    IterableSourceVocabulary,
-    SourceDisplayWidget,
-    SourceDropdownWidget,
-    SourceInputWidget,
-    SourceListInputWidget,
-    SourceMultiCheckBoxWidget,
-    SourceMultiSelectFrozenSetWidget,
-    SourceMultiSelectSetWidget,
-    SourceMultiSelectWidget,
-    SourceOrderedMultiSelectWidget,
-    SourceRadioWidget,
-    SourceSelectWidget,
-    SourceSequenceDisplayWidget,
-)
+from zope.formlib.source import IterableSourceVocabulary
+from zope.formlib.source import SourceDisplayWidget
+from zope.formlib.source import SourceDropdownWidget
+from zope.formlib.source import SourceInputWidget
+from zope.formlib.source import SourceListInputWidget
+from zope.formlib.source import SourceMultiCheckBoxWidget
+from zope.formlib.source import SourceMultiSelectFrozenSetWidget
+from zope.formlib.source import SourceMultiSelectSetWidget
+from zope.formlib.source import SourceMultiSelectWidget
+from zope.formlib.source import SourceOrderedMultiSelectWidget
+from zope.formlib.source import SourceRadioWidget
+from zope.formlib.source import SourceSelectWidget
+from zope.formlib.source import SourceSequenceDisplayWidget
 
 
 __all__ = [

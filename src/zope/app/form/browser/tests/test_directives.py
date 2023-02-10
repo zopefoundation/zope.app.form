@@ -13,21 +13,27 @@
 ##############################################################################
 """Form Directives Tests"""
 import unittest
+
+
 try:
     from cStringIO import StringIO
 except ImportError:
     from io import StringIO
 
-from zope import component
 from zope.component.testing import PlacelessSetup
-from zope.configuration.xmlconfig import xmlconfig, XMLConfig
-from zope.traversing.interfaces import TraversalError
-from zope.interface import Interface, implementer
+from zope.configuration.xmlconfig import XMLConfig
+from zope.configuration.xmlconfig import xmlconfig
+from zope.interface import Interface
+from zope.interface import implementer
 from zope.publisher.browser import TestRequest
-from zope.schema import TextLine, Int
+from zope.schema import Int
+from zope.schema import TextLine
+from zope.traversing.interfaces import TraversalError
 
+from zope import component
 from zope.app.form.browser import TextWidget
 from zope.app.form.tests import utils
+
 
 template = """<configure
    xmlns='http://namespaces.zope.org/zope'

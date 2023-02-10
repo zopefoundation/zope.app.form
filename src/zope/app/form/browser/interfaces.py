@@ -14,22 +14,18 @@
 """Form and Widget Interfaces"""
 __docformat__ = 'restructuredtext'
 
-from zope.interface import Interface
-
 # BBB: ITerms are also used by z3c.form and possibly other form
 # frameworks, so it was moved to zope.browser.interfaces and it's
 # preferred to import from there now.
 from zope.browser.interfaces import ITerms
-
-from zope.formlib.interfaces import (
-    IBrowserWidget,
-    IInputWidget,
-    ISimpleInputWidget,
-    ISourceQueryView,
-    ITextBrowserWidget,
-    IWidget,
-    IWidgetInputErrorView,
-)
+from zope.formlib.interfaces import IBrowserWidget
+from zope.formlib.interfaces import IInputWidget
+from zope.formlib.interfaces import ISimpleInputWidget
+from zope.formlib.interfaces import ISourceQueryView
+from zope.formlib.interfaces import ITextBrowserWidget
+from zope.formlib.interfaces import IWidget
+from zope.formlib.interfaces import IWidgetInputErrorView
+from zope.interface import Interface
 
 
 class IFormCollaborationView(Interface):

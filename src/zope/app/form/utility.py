@@ -32,22 +32,25 @@ fields, or widgets.
 """
 __docformat__ = 'restructuredtext'
 
-from zope import security
-from zope.security.proxy import Proxy
-from zope.proxy import isProxy
-from zope.interface.interfaces import IMethod
-from zope.security.interfaces import ForbiddenAttribute, Unauthorized
-from zope.formlib.interfaces import WidgetsError, MissingInputError
+from zope.formlib.interfaces import IDisplayWidget
+from zope.formlib.interfaces import IInputWidget
 from zope.formlib.interfaces import InputErrors
-from zope.formlib.interfaces import IInputWidget, IDisplayWidget
+from zope.formlib.interfaces import MissingInputError
+from zope.formlib.interfaces import WidgetsError
 # BBB
-from zope.formlib.utility import (
-    setUpWidget,
-    setUpWidgets,
-    applyWidgetsChanges,
-    _fieldlist,
-    no_value,
-    _widgetHasStickyValue)
+from zope.formlib.utility import _fieldlist
+from zope.formlib.utility import _widgetHasStickyValue
+from zope.formlib.utility import applyWidgetsChanges
+from zope.formlib.utility import no_value
+from zope.formlib.utility import setUpWidget
+from zope.formlib.utility import setUpWidgets
+from zope.interface.interfaces import IMethod
+from zope.proxy import isProxy
+from zope.security.interfaces import ForbiddenAttribute
+from zope.security.interfaces import Unauthorized
+from zope.security.proxy import Proxy
+
+from zope import security
 
 
 def setUpEditWidgets(view, schema, source=None, prefix=None,

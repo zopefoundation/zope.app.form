@@ -15,15 +15,16 @@
 __docformat__ = 'restructuredtext'
 
 import zope.component
-from zope.interface import Interface
-from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-from zope.publisher.browser import BrowserView
-from zope.schema import getFieldNamesInOrder
-from zope.security.checker import defineChecker, NamesChecker
-
-from zope.app.form.utility import setUpDisplayWidgets
 from zope.browserpage import ViewPageTemplateFile
 from zope.browserpage.simpleviewclass import SimpleViewClass
+from zope.interface import Interface
+from zope.publisher.browser import BrowserView
+from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+from zope.schema import getFieldNamesInOrder
+from zope.security.checker import NamesChecker
+from zope.security.checker import defineChecker
+
+from zope.app.form.utility import setUpDisplayWidgets
 
 
 class DisplayView(BrowserView):

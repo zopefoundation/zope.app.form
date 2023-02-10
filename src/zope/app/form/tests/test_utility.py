@@ -15,30 +15,42 @@
 
 import doctest
 import re
+
 # XXX: Apparently unused imports that linters warn about
 # are probable used in docstring doctests.
 # pylint:disable=unused-import
 import zope.security.checker
-from zope.interface import Interface, implementer
 from zope.component import testing
+from zope.formlib.interfaces import ConversionError
+from zope.formlib.interfaces import IDisplayWidget
+from zope.formlib.interfaces import IInputWidget
+from zope.formlib.interfaces import IWidget
+from zope.formlib.interfaces import IWidgetFactory
+from zope.formlib.interfaces import WidgetsError
+from zope.formlib.widget import Widget
+from zope.interface import Interface
+from zope.interface import implementer
 from zope.interface.interfaces import ComponentLookupError
-from zope.publisher.browser import TestRequest, BrowserView
+from zope.publisher.browser import BrowserView
+from zope.publisher.browser import TestRequest
+from zope.schema import Field
+from zope.schema import Int
+from zope.schema import accessors
+from zope.schema.interfaces import IField
+from zope.schema.interfaces import IInt
 from zope.security.interfaces import ForbiddenAttribute
-from zope.schema import Field, Int, accessors
-from zope.schema.interfaces import IField, IInt
 from zope.testing import renormalizing
 
 import zope.app.form.testing as ztapi
-
-from zope.formlib.widget import Widget
-from zope.formlib.interfaces import IWidget, IInputWidget, IDisplayWidget
-from zope.formlib.interfaces import ConversionError, WidgetsError
-from zope.formlib.interfaces import IWidgetFactory
-from zope.app.form.utility import no_value, setUpWidget, setUpWidgets
-from zope.app.form.utility import setUpEditWidgets, setUpDisplayWidgets
-from zope.app.form.utility import getWidgetsData, viewHasInput
-from zope.app.form.utility import applyWidgetsChanges
 from zope.app.form.tests import utils
+from zope.app.form.utility import applyWidgetsChanges
+from zope.app.form.utility import getWidgetsData
+from zope.app.form.utility import no_value
+from zope.app.form.utility import setUpDisplayWidgets
+from zope.app.form.utility import setUpEditWidgets
+from zope.app.form.utility import setUpWidget
+from zope.app.form.utility import setUpWidgets
+from zope.app.form.utility import viewHasInput
 
 
 request = TestRequest()

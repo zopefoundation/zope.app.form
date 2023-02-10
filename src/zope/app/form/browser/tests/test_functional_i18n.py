@@ -13,16 +13,21 @@
 ##############################################################################
 """Test form i18n"""
 
+import doctest
 import re
 import unittest
-import doctest
-from persistent import Persistent
-from zope.testing import renormalizing
-from zope.interface import Interface, implementer
-from zope.schema import TextLine, Text, Int, List
-from zope.i18nmessageid import MessageFactory
 
+from persistent import Persistent
 from zope.app.wsgi.testlayer import http
+from zope.i18nmessageid import MessageFactory
+from zope.interface import Interface
+from zope.interface import implementer
+from zope.schema import Int
+from zope.schema import List
+from zope.schema import Text
+from zope.schema import TextLine
+from zope.testing import renormalizing
+
 from zope.app.form.testing import AppFormLayer
 
 

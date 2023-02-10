@@ -14,7 +14,10 @@
 """Generic Widget base classes"""
 __docformat__ = 'restructuredtext'
 # BBB
-from zope.formlib.widget import Widget, InputWidget, CustomWidgetFactory
+from zope.formlib.widget import CustomWidgetFactory
+from zope.formlib.widget import InputWidget
+from zope.formlib.widget import Widget
+
 
 __all__ = [
     'Widget',

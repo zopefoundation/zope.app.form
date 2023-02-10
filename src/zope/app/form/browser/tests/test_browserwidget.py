@@ -13,12 +13,10 @@
 ##############################################################################
 """Test Browser Widget"""
 # BBB
-from zope.formlib.tests.test_browserwidget import (
-    BrowserWidgetTest,
-    SimpleInputWidgetTest,
-    TestWidget,
-    Test,
-)
+from zope.formlib.tests.test_browserwidget import BrowserWidgetTest
+from zope.formlib.tests.test_browserwidget import SimpleInputWidgetTest
+from zope.formlib.tests.test_browserwidget import Test
+from zope.formlib.tests.test_browserwidget import TestWidget
 
 
 __all__ = [

@@ -16,33 +16,36 @@ import unittest
 
 from zope.browser.interfaces import IAdding
 from zope.component import getMultiAdapter
+from zope.component.eventtesting import PlacelessSetup as EventPlacelessSetup
 from zope.component.eventtesting import getEvents
-from zope.component.interfaces import IFactory
-from zope.interface.interfaces import IComponentLookup
 from zope.component.factory import Factory
-from zope.interface import Interface, implementer
+from zope.component.interfaces import IFactory
+from zope.component.testing import PlacelessSetup as CAPlacelessSetup
+from zope.formlib.widget import CustomWidgetFactory
+from zope.interface import Interface
+from zope.interface import implementer
+from zope.interface.interfaces import IComponentLookup
 from zope.lifecycleevent.interfaces import IObjectCreatedEvent
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from zope.publisher.browser import TestRequest
 from zope.publisher.interfaces.browser import IBrowserRequest
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-from zope.schema import TextLine, accessors
+from zope.schema import TextLine
+from zope.schema import accessors
 from zope.security.checker import CheckerPublic
 from zope.site.site import SiteManagerAdapter
 
-from zope.formlib.widget import CustomWidgetFactory
+import zope.app.form.testing as ztapi
 from zope.app.form.browser import TextWidget as Text
-from zope.app.form.browser.add import AddViewFactory, AddView
+from zope.app.form.browser.add import AddView
+from zope.app.form.browser.add import AddViewFactory
 from zope.app.form.browser.metaconfigure import AddFormDirective
 from zope.app.form.browser.submit import Update
-import zope.app.form.testing as ztapi
-
 # Foo needs to be imported as globals() are checked
-from zope.app.form.browser.tests.test_editview import IFoo, IBar, Foo
+from zope.app.form.browser.tests.test_editview import Foo
 from zope.app.form.browser.tests.test_editview import FooBarAdapter
-
-from zope.component.testing import PlacelessSetup as CAPlacelessSetup
-from zope.component.eventtesting import PlacelessSetup as EventPlacelessSetup
+from zope.app.form.browser.tests.test_editview import IBar
+from zope.app.form.browser.tests.test_editview import IFoo
 
 
 class PlacelessSetup(CAPlacelessSetup, EventPlacelessSetup):

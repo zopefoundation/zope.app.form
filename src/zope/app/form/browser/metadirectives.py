@@ -14,13 +14,17 @@
 """Form and Widget specific 'browser' ZCML namespace interfaces"""
 __docformat__ = 'restructuredtext'
 
-from zope.interface import Interface
-from zope.configuration.fields import GlobalObject, GlobalInterface
-from zope.configuration.fields import Tokens, Path, PythonIdentifier
-from zope.configuration.fields import MessageID
-from zope.schema import TextLine, Id
-from zope.security.zcml import Permission
 from zope.browsermenu.field import MenuField
+from zope.configuration.fields import GlobalInterface
+from zope.configuration.fields import GlobalObject
+from zope.configuration.fields import MessageID
+from zope.configuration.fields import Path
+from zope.configuration.fields import PythonIdentifier
+from zope.configuration.fields import Tokens
+from zope.interface import Interface
+from zope.schema import Id
+from zope.schema import TextLine
+from zope.security.zcml import Permission
 
 
 class ICommonInformation(Interface):

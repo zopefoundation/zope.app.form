@@ -13,7 +13,6 @@
 ##############################################################################
 """General test support."""
 from zope.configuration import xmlconfig
-
 # This import is used in tests.
 from zope.formlib.tests.support import patternExists  # noqa: F401
 

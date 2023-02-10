@@ -15,13 +15,14 @@
 __docformat__ = 'restructuredtext'
 
 import transaction
+from zope.formlib.interfaces import IInputWidget
+from zope.formlib.interfaces import WidgetsError
 
-from zope.formlib.interfaces import WidgetsError, IInputWidget
-
-from zope.app.form.utility import setUpWidgets, applyWidgetsChanges
 from zope.app.form.browser.editview import EditView
 from zope.app.form.browser.i18n import _
 from zope.app.form.browser.submit import Update
+from zope.app.form.utility import applyWidgetsChanges
+from zope.app.form.utility import setUpWidgets
 
 
 class Data(dict):

@@ -12,20 +12,21 @@
 #
 ##############################################################################
 """Tests for the <widget> subdirective for the generated form pages."""
-import unittest
 import doctest
+import unittest
 
 import zope.component
-import zope.interface
+import zope.component.testing
 import zope.configuration.xmlconfig
+import zope.formlib.interfaces
+import zope.interface
 import zope.publisher.browser
 import zope.schema
 from zope.browser.interfaces import IAdding
 
 import zope.app.form.browser.interfaces
-import zope.formlib.interfaces
 from zope.app.form.tests import utils
-import zope.component.testing
+
 
 __docformat__ = "reStructuredText"
 
