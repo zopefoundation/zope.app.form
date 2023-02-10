@@ -34,11 +34,11 @@ from zope.app.form.tests import utils
 
 
 class I(Interface):  # noqa: E742 ambiguous class definition 'I'
-    foo = TextLine(title=u"Foo")
-    bar = TextLine(title=u"Bar")
-    a = TextLine(title=u"A")
-    b = TextLine(title=u"B", min_length=0, required=False)
-    getbaz, setbaz = accessors(TextLine(title=u"Baz"))
+    foo = TextLine(title="Foo")
+    bar = TextLine(title="Bar")
+    a = TextLine(title="A")
+    b = TextLine(title="B", min_length=0, required=False)
+    getbaz, setbaz = accessors(TextLine(title="Baz"))
 
 
 class EV(EditView):
@@ -47,39 +47,39 @@ class EV(EditView):
 
 
 @implementer(I)
-class C(object):
+class C:
 
-    foo = u"c foo"
-    bar = u"c bar"
-    a = u"c a"
-    b = u"c b"
+    foo = "c foo"
+    bar = "c bar"
+    a = "c a"
+    b = "c b"
     __Security_checker__ = utils.SchemaChecker(I)
 
-    _baz = u"c baz"
+    _baz = "c baz"
     def getbaz(self): return self._baz
     def setbaz(self, v): self._baz = v
 
 
 class IFoo(Interface):
-    foo = TextLine(title=u"Foo")
+    foo = TextLine(title="Foo")
 
 
 class IBar(Interface):
-    bar = TextLine(title=u"Bar")
+    bar = TextLine(title="Bar")
 
 
 @implementer(IFoo)
-class Foo(object):
+class Foo:
 
     __Security_checker__ = utils.SchemaChecker(IFoo)
 
-    foo = u'Foo foo'
+    foo = 'Foo foo'
 
 
 @implementer(IFoo)
-class ConformFoo(object):
+class ConformFoo:
 
-    foo = u'Foo foo'
+    foo = 'Foo foo'
 
     def __conform__(self, interface):
         if interface is IBar:
@@ -87,7 +87,7 @@ class ConformFoo(object):
 
 
 @implementer(IBar, ILocation)
-class FooBarAdapter(object):
+class FooBarAdapter:
 
     __used_for__ = IFoo
 
@@ -114,7 +114,7 @@ class BarV(EditView):
 class Test(PlacelessSetup, unittest.TestCase):
 
     def setUp(self):
-        super(Test, self).setUp()
+        super().setUp()
         ztapi.browserViewProviding(ITextLine, TextWidget, IInputWidget)
         ztapi.provideAdapter(IFoo, IBar, FooBarAdapter)
         clearEvents()
@@ -145,22 +145,22 @@ class Test(PlacelessSetup, unittest.TestCase):
         request = TestRequest()
         v = EV(c, request)
         self.assertEqual(v.update(), '')
-        self.assertEqual(c.foo, u'c foo')
-        self.assertEqual(c.bar, u'c bar')
-        self.assertEqual(c.a, u'c a')
-        self.assertEqual(c.b, u'c b')
-        self.assertEqual(c.getbaz(), u'c baz')
-        request.form['field.foo'] = u'r foo'
-        request.form['field.bar'] = u'r bar'
-        request.form['field.a'] = u'r a'
-        request.form['field.b'] = u'r b'
-        request.form['field.getbaz'] = u'r baz'
+        self.assertEqual(c.foo, 'c foo')
+        self.assertEqual(c.bar, 'c bar')
+        self.assertEqual(c.a, 'c a')
+        self.assertEqual(c.b, 'c b')
+        self.assertEqual(c.getbaz(), 'c baz')
+        request.form['field.foo'] = 'r foo'
+        request.form['field.bar'] = 'r bar'
+        request.form['field.a'] = 'r a'
+        request.form['field.b'] = 'r b'
+        request.form['field.getbaz'] = 'r baz'
         self.assertEqual(v.update(), '')
-        self.assertEqual(c.foo, u'c foo')
-        self.assertEqual(c.bar, u'c bar')
-        self.assertEqual(c.a, u'c a')
-        self.assertEqual(c.b, u'c b')
-        self.assertEqual(c.getbaz(), u'c baz')
+        self.assertEqual(c.foo, 'c foo')
+        self.assertEqual(c.bar, 'c bar')
+        self.assertEqual(c.a, 'c a')
+        self.assertEqual(c.b, 'c b')
+        self.assertEqual(c.getbaz(), 'c baz')
         self.assertFalse(getEvents())
 
     def test_update(self):
@@ -168,43 +168,43 @@ class Test(PlacelessSetup, unittest.TestCase):
         request = TestRequest()
         v = EV(c, request)
         request.form[Update] = ''
-        request.form['field.foo'] = u'r foo'
-        request.form['field.bar'] = u'r bar'
-        request.form['field.getbaz'] = u'r baz'
-        request.form['field.a'] = u'c a'
+        request.form['field.foo'] = 'r foo'
+        request.form['field.bar'] = 'r bar'
+        request.form['field.getbaz'] = 'r baz'
+        request.form['field.a'] = 'c a'
 
         message = v.update()
         self.assertTrue(message.startswith('Updated '), message)
-        self.assertEqual(c.foo, u'r foo')
-        self.assertEqual(c.bar, u'r bar')
-        self.assertEqual(c.a, u'c a')
-        self.assertEqual(c.b, u'c b')  # missing from form - unchanged
-        self.assertEqual(c.getbaz(), u'r baz')
+        self.assertEqual(c.foo, 'r foo')
+        self.assertEqual(c.bar, 'r bar')
+        self.assertEqual(c.a, 'c a')
+        self.assertEqual(c.b, 'c b')  # missing from form - unchanged
+        self.assertEqual(c.getbaz(), 'r baz')
 
         # Verify that calling update multiple times has no effect
 
         c.__dict__.clear()
         self.assertEqual(v.update(), message)
-        self.assertEqual(c.foo, u'c foo')
-        self.assertEqual(c.bar, u'c bar')
-        self.assertEqual(c.a, u'c a')
-        self.assertEqual(c.b, u'c b')
-        self.assertEqual(c.getbaz(), u'c baz')
+        self.assertEqual(c.foo, 'c foo')
+        self.assertEqual(c.bar, 'c bar')
+        self.assertEqual(c.a, 'c a')
+        self.assertEqual(c.b, 'c b')
+        self.assertEqual(c.getbaz(), 'c baz')
 
     def test_update_via_adapter(self):
         f = Foo()
         request = TestRequest()
         v = BarV(f, request)
         # check adapter
-        self.assertEqual(f.foo, u'Foo foo')
+        self.assertEqual(f.foo, 'Foo foo')
         a = IBar(f)
-        self.assertEqual(a.bar, u'Foo foo')
+        self.assertEqual(a.bar, 'Foo foo')
         # update
         request.form[Update] = ''
-        request.form['field.bar'] = u'r bar'
+        request.form['field.bar'] = 'r bar'
         message = v.update()
         self.assertTrue(message.startswith('Updated '), message)
-        self.assertEqual(a.bar, u'r bar')
+        self.assertEqual(a.bar, 'r bar')
         # wrong update
         self.assertFalse(getEvents())
 

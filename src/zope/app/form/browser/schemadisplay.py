@@ -42,7 +42,7 @@ class DisplayView(BrowserView):
     fieldNames = property(lambda self: getFieldNamesInOrder(self.schema))
 
     def __init__(self, context, request):
-        super(DisplayView, self).__init__(context, request)
+        super().__init__(context, request)
         self._setUpWidgets()
 
     def _setUpWidgets(self):

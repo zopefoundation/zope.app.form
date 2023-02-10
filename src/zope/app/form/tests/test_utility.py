@@ -14,7 +14,6 @@
 """Form Utilities Tests"""
 
 import doctest
-import re
 
 # XXX: Apparently unused imports that linters warn about
 # are probable used in docstring doctests.
@@ -39,7 +38,6 @@ from zope.schema import accessors
 from zope.schema.interfaces import IField
 from zope.schema.interfaces import IInt
 from zope.security.interfaces import ForbiddenAttribute
-from zope.testing import renormalizing
 
 import zope.app.form.testing as ztapi
 from zope.app.form.tests import utils
@@ -89,7 +87,7 @@ class IContent(Interface):
 
 
 @implementer(IContent)
-class Content(object):
+class Content:
     __Security_checker__ = utils.SchemaChecker(IContent)
     foo = 'Foo'
 
@@ -162,7 +160,7 @@ def assertRaises(exceptionType, callable, *args):
         return isinstance(e, exceptionType)
 
 
-class TestSetUpWidget(object):
+class TestSetUpWidget:
 
     def test_typical(self):
         """Documents and tests the typical uses of setUpWidget.
@@ -471,7 +469,7 @@ class TestSetUpWidget(object):
         """
 
 
-class TestSetUpWidgets(object):
+class TestSetUpWidgets:
 
     def test_typical(self):
         """Tests the typical use of setUpWidgets.
@@ -628,19 +626,19 @@ class TestSetUpWidgets(object):
             >>> view = BrowserView('some context', TestRequest())
             >>> setUpEditWidgets(view, IMySchema)
             Traceback (most recent call last):
-            ForbiddenAttribute: ('some context', 'tryme')
+            zope.security.interfaces.ForbiddenAttribute: ('some context', 'tryme')
 
         The same applies to setUpDisplayWidgets:
 
             >>> setUpDisplayWidgets(view, IMySchema)
             Traceback (most recent call last):
-            ForbiddenAttribute: ('some context', 'tryme')
+            zope.security.interfaces.ForbiddenAttribute: ('some context', 'tryme')
 
         >>> tearDown()
-        """
+        """  # noqa: E501 line too long
 
 
-class TestFormSetUp(object):
+class TestFormSetUp:
 
     def test_setUpEditWidgets(self):
         """Documents and tests setUpEditWidgets.
@@ -729,19 +727,19 @@ class TestFormSetUp(object):
             ... # can' write to bar
             Traceback (most recent call last):
             ...
-            Unauthorized: bar
+            zope.security.interfaces.Unauthorized: bar
             >>> setUpEditWidgets(
             ... view, IExtendedContent, names=['getAnotherBaz'])
             ... # can't access the setter, setAnotherBaz
             Traceback (most recent call last):
             ...
-            Unauthorized: setAnotherBaz
+            zope.security.interfaces.Unauthorized: setAnotherBaz
             >>> setUpEditWidgets(
             ... view, IExtendedContent, names=['shazam'])
             ... # can't even access shazam
             Traceback (most recent call last):
             ...
-            Unauthorized
+            zope.security.interfaces.Unauthorized
 
         Two optional flags can change this behavior.  degradeDisplay=True
         causes the form machinery to skip fields silently that the user may
@@ -801,7 +799,7 @@ class TestFormSetUp(object):
             ...     degradeInput=True)
             Traceback (most recent call last):
             ...
-            Unauthorized
+            zope.security.interfaces.Unauthorized
             >>> setUpEditWidgets(
             ...     view, IExtendedContent,
             ...     names=['foo', 'bar', 'shazam', 'getBaz', 'getAnotherBaz'],
@@ -891,7 +889,7 @@ class TestFormSetUp(object):
             ...     names=['foo', 'bar', 'shazam', 'getBaz', 'getAnotherBaz'])
             Traceback (most recent call last):
             ...
-            Unauthorized
+            zope.security.interfaces.Unauthorized
             >>> setUpDisplayWidgets(
             ...     view, IExtendedContent,
             ...     names=['foo', 'bar', 'shazam', 'getBaz', 'getAnotherBaz'],
@@ -914,7 +912,7 @@ class TestFormSetUp(object):
         """  # noqa: E501 line too long
 
 
-class TestForms(object):
+class TestForms:
 
     def test_viewHasInput(self):
         """Tests viewHasInput.
@@ -1043,17 +1041,17 @@ class TestForms(object):
             'not really'
             >>> applyWidgetsChanges(view, IContent, names=('foo', 'bar'))
             Traceback (most recent call last):
-            WidgetsError: ConversionError: ('invalid input', None)
+            zope.formlib.interfaces.WidgetsError: ConversionError: ('invalid input', None)
             >>> context.foo
             'a'
             >>> getattr(context, 'bar', 'not really')
             'not really'
 
         >>> tearDown()
-        """
+        """  # noqa: E501 line too long
 
 
-class TestGetWidgetsData(object):
+class TestGetWidgetsData:
 
     def test_typical(self):
         """Documents and tests the typical use of getWidgetsData.
@@ -1089,8 +1087,8 @@ class TestGetWidgetsData(object):
             ...     print('getWidgetsData failed')
             ...     e
             getWidgetsData failed
-            MissingInputError: ('foo', u'', 'the field is required')
-            MissingInputError: ('bar', u'', 'the field is required')
+            MissingInputError: ('foo', '', 'the field is required')
+            MissingInputError: ('bar', '', 'the field is required')
 
         We see that getWidgetsData raises a MissingInputError if a required
         field does not have input from a widget.:
@@ -1173,7 +1171,7 @@ class TestGetWidgetsData(object):
             ...     widgetsError = WidgetsError(errors, widgetsData)
             ...     raise widgetsError
             Traceback (most recent call last):
-            WidgetsError: KeyError: 'bar'
+            zope.formlib.interfaces.WidgetsError: KeyError: 'bar'
 
         The handler of error can access all of the widget error as well as
         the widget values read:
@@ -1186,17 +1184,5 @@ class TestGetWidgetsData(object):
         """
 
 
-checker = renormalizing.RENormalizing([
-    (re.compile("u('.*?')"), r"\1"),
-    (re.compile('u(".*?")'), r"\1"),
-    # Python 3 adds module name to exceptions.
-    (re.compile('zope.interface.exceptions.Invalid'), 'Invalid'),
-    (re.compile('zope.security.interfaces.Unauthorized'), 'Unauthorized'),
-    (re.compile('zope.security.interfaces.ForbiddenAttribute'),
-        'ForbiddenAttribute'),
-    (re.compile('zope.formlib.interfaces.WidgetsError'), 'WidgetsError'),
-])
-
-
 def test_suite():
-    return doctest.DocTestSuite(checker=checker)
+    return doctest.DocTestSuite()

@@ -58,7 +58,7 @@ class EditView(BrowserView):
     generated_form = ViewPageTemplateFile('edit.pt')
 
     def __init__(self, context, request):
-        super(EditView, self).__init__(context, request)
+        super().__init__(context, request)
         self._setUpWidgets()
 
     def _setUpWidgets(self):

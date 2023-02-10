@@ -28,32 +28,32 @@ def registerEditForm(schema, widgets=()):
     for field in widgets:  # pragma: no cover
         widgetsXml.append('<widget field="%s"' % field)
         for attr in widgets[field]:
-            widgetsXml.append(' %s="%s"' % (attr, widgets[field][attr]))
+            widgetsXml.append(' {}="{}"'.format(attr, widgets[field][attr]))
         widgetsXml.append(' />')
     xmlconfig.string("""
         <configure xmlns="http://namespaces.zope.org/browser">
           <include package="zope.app.form.browser" file="meta.zcml" />
           <editform
             name="edit.html"
-            schema="%s"
+            schema="{}"
             permission="zope.View">
-            %s
+            {}
           </editform>
         </configure>
-        """ % (schema.__identifier__, ''.join(widgetsXml)))
+        """.format(schema.__identifier__, ''.join(widgetsXml)))
 
 
 def defineSecurity(class_, schema):
-    class_ = '%s.%s' % (class_.__module__, class_.__name__)
+    class_ = '{}.{}'.format(class_.__module__, class_.__name__)
     schema = schema.__identifier__
     xmlconfig.string("""
         <configure xmlns="http://namespaces.zope.org/zope">
           <include package="zope.security" file="meta.zcml" />
-          <class class="%s">
+          <class class="{}">
             <require
               permission="zope.Public"
-              interface="%s"
-              set_schema="%s" />
+              interface="{}"
+              set_schema="{}" />
           </class>
         </configure>
-        """ % (class_, schema, schema))
+        """.format(class_, schema, schema))

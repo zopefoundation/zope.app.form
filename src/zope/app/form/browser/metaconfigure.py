@@ -41,7 +41,7 @@ from zope.app.form.browser.schemadisplay import DisplayView
 from zope.app.form.browser.schemadisplay import DisplayViewFactory
 
 
-class BaseFormDirective(object):
+class BaseFormDirective:
 
     # to be overriden by the subclasses
     view = None
@@ -286,7 +286,7 @@ class FormDirective(EditFormDirective):
     view = FormView
 
     def __init__(self, _context, **kwargs):
-        super(FormDirective, self).__init__(_context, **kwargs)
+        super().__init__(_context, **kwargs)
         attrs = self.class_.__dict__.keys()
         if 'template' not in kwargs.keys() and 'update' not in attrs and \
                 ('getData' not in attrs or 'setData' not in attrs):

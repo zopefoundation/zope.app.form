@@ -34,14 +34,14 @@ __docformat__ = "reStructuredText"
 class IContent(zope.interface.Interface):
 
     field = zope.schema.TextLine(
-        title=u"Field",
-        description=u"Sample input field",
+        title="Field",
+        description="Sample input field",
         required=False,
     )
 
 
 @zope.interface.implementer(IContent)
-class Content(object):
+class Content:
 
     __Security_checker__ = utils.SchemaChecker(IContent)
 
@@ -52,7 +52,7 @@ class Content(object):
 
 
 @zope.interface.implementer(IAdding)
-class Adding(object):
+class Adding:
 
     def add(self, content):
         raise NotImplementedError("Don't actually get here")
@@ -62,7 +62,7 @@ class WidgetDirectiveTestCase(zope.component.testing.PlacelessSetup,
                               unittest.TestCase):
 
     def setUp(self):
-        super(WidgetDirectiveTestCase, self).setUp()
+        super().setUp()
         zope.configuration.xmlconfig.file("widgetDirectives.zcml",
                                           zope.app.form.browser.tests)
 

@@ -39,28 +39,28 @@ __docformat__ = "reStructuredText"
 class IFieldContent(Interface):
 
     title = TextLine(
-        title=_(u"Title"),
-        description=_(u"A short description of the event."),
-        default=u"",
+        title=_("Title"),
+        description=_("A short description of the event."),
+        default="",
         required=True
     )
 
     description = Text(
-        title=_(u"Description"),
-        description=_(u"A long description of the event."),
-        default=u"",
+        title=_("Description"),
+        description=_("A long description of the event."),
+        default="",
         required=False
     )
 
     somenumber = Int(
-        title=_(u"Some number"),
+        title=_("Some number"),
         default=0,
         required=False
     )
 
     somelist = List(
-        title=_(u"Some List"),
-        value_type=TextLine(title=_(u"Some item")),
+        title=_("Some List"),
+        value_type=TextLine(title=_("Some item")),
         default=[],
         required=False
     )

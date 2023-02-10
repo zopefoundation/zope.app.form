@@ -71,8 +71,8 @@ class Test(unittest.TestCase):
         transaction should be rolledback to ensure object integrity.
         """
         self.getRootFolder()['foo'] = Foo()
-        self.getRootFolder()['foo'].required_text = u'initial required'
-        self.getRootFolder()['foo'].optional_text = u'initial optional'
+        self.getRootFolder()['foo'].required_text = 'initial required'
+        self.getRootFolder()['foo'].optional_text = 'initial optional'
         transaction.commit()
 
         # submit form with legal value for optional_text and invalid for
@@ -84,12 +84,12 @@ class Test(unittest.TestCase):
                 # failed. Side effects like this should not be committed.
                 # http://www.zope.org/Collectors/Zope3-dev/655
                 result = old_update(self)
-                self.context.required_text = u'changed after form validation'
+                self.context.required_text = 'changed after form validation'
                 return result
             EditView.update = new_update
             response = self.publish('/foo/edit.html', form={
-                'field.optional_text': u'',
-                'field.required_text': u'',
+                'field.optional_text': '',
+                'field.required_text': '',
                 'UPDATE_SUBMIT': ''})
             self.assertEqual(response.status_int, 200)
         finally:
@@ -101,8 +101,8 @@ class Test(unittest.TestCase):
 
         # confirm that foo was not modified
         foo = traverse(self.getRootFolder(), 'foo')
-        self.assertEqual(foo.required_text, u'initial required')
-        self.assertEqual(foo.optional_text, u'initial optional')
+        self.assertEqual(foo.required_text, 'initial required')
+        self.assertEqual(foo.optional_text, 'initial optional')
 
 
 def test_suite():
