@@ -20,16 +20,6 @@ __docformat__ = 'restructuredtext'
 from zope.formlib.widget import BrowserWidget
 from zope.formlib.widget import DisplayWidget
 from zope.formlib.widget import UnicodeDisplayWidget
-# Widgets that let you enter several items in a sequence
-# These widgets are multi-views on (sequence type, value type)
-# Widgets that let you choose several items from a list
-# These widgets are multi-views on (field, vocabulary)
-# Widgets that let you choose a single item from a list
-# These widgets are multi-views on (field, vocabulary)
-# Widgets for fields with vocabularies.
-# Note that these are only dispatchers for the widgets below.
-# Choice and Sequence Display Widgets
-# Widgets for boolean fields
 from zope.formlib.widgets import ASCIIAreaWidget
 from zope.formlib.widgets import ASCIIDisplayWidget
 from zope.formlib.widgets import ASCIIWidget
