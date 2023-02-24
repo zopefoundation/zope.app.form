@@ -13,21 +13,22 @@
 ##############################################################################
 """Form Directives Tests"""
 import unittest
-try:
-    from cStringIO import StringIO
-except ImportError:
-    from io import StringIO
+from io import StringIO
+
+from zope.component.testing import PlacelessSetup
+from zope.configuration.xmlconfig import XMLConfig
+from zope.configuration.xmlconfig import xmlconfig
+from zope.interface import Interface
+from zope.interface import implementer
+from zope.publisher.browser import TestRequest
+from zope.schema import Int
+from zope.schema import TextLine
+from zope.traversing.interfaces import TraversalError
 
 from zope import component
-from zope.component.testing import PlacelessSetup
-from zope.configuration.xmlconfig import xmlconfig, XMLConfig
-from zope.traversing.interfaces import TraversalError
-from zope.interface import Interface, implementer
-from zope.publisher.browser import TestRequest
-from zope.schema import TextLine, Int
-
 from zope.app.form.browser import TextWidget
 from zope.app.form.tests import utils
+
 
 template = """<configure
    xmlns='http://namespaces.zope.org/zope'
@@ -43,8 +44,8 @@ request = TestRequest()
 class Schema(Interface):
 
     text = TextLine(
-        title=u'Text',
-        description=u'Nice text',
+        title='Text',
+        description='Nice text',
         required=False)
 
 
@@ -53,7 +54,7 @@ class IC(Schema):
 
 
 @implementer(IC)
-class Ob(object):
+class Ob:
     pass
 
 
@@ -63,7 +64,7 @@ ob = utils.securityWrap(unwrapped_ob, IC)
 
 class ISomeWidget(Interface):
     displayWidth = Int(
-        title=u"Display Width",
+        title="Display Width",
         default=20,
         required=True)
 
@@ -76,7 +77,7 @@ class SomeWidget(TextWidget):
 class Test(PlacelessSetup, unittest.TestCase):
 
     def setUp(self):
-        super(Test, self).setUp()
+        super().setUp()
         import zope.component
         XMLConfig('meta.zcml', zope.component)()
         import zope.app.form.browser
@@ -230,7 +231,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         view = component.queryMultiAdapter((ob, request), name='add.html')
         self.assertTrue(hasattr(view, 'text_widget'))
         self.assertTrue(isinstance(view.text_widget, SomeWidget))
-        self.assertEqual(view.text_widget.extra, u'foo')
+        self.assertEqual(view.text_widget.extra, 'foo')
         self.assertEqual(view.text_widget.displayWidth, 30)
 
     def testEditFormWithWidget(self):
@@ -267,7 +268,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         view = component.queryMultiAdapter((ob, request), name='edit.html')
         self.assertTrue(hasattr(view, 'text_widget'))
         self.assertTrue(isinstance(view.text_widget, SomeWidget))
-        self.assertEqual(view.text_widget.extra, u'foo')
+        self.assertEqual(view.text_widget.extra, 'foo')
         self.assertEqual(view.text_widget.displayWidth, 30)
 
     def testSchemaDisplayWithWidget(self):
@@ -303,7 +304,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         view = component.queryMultiAdapter((ob, request), name='view.html')
         self.assertTrue(hasattr(view, 'text_widget'))
         self.assertTrue(isinstance(view.text_widget, SomeWidget))
-        self.assertEqual(view.text_widget.extra, u'foo')
+        self.assertEqual(view.text_widget.extra, 'foo')
         self.assertEqual(view.text_widget.displayWidth, 30)
 
 

@@ -14,13 +14,17 @@
 """Form and Widget specific 'browser' ZCML namespace interfaces"""
 __docformat__ = 'restructuredtext'
 
-from zope.interface import Interface
-from zope.configuration.fields import GlobalObject, GlobalInterface
-from zope.configuration.fields import Tokens, Path, PythonIdentifier
-from zope.configuration.fields import MessageID
-from zope.schema import TextLine, Id
-from zope.security.zcml import Permission
 from zope.browsermenu.field import MenuField
+from zope.configuration.fields import GlobalInterface
+from zope.configuration.fields import GlobalObject
+from zope.configuration.fields import MessageID
+from zope.configuration.fields import Path
+from zope.configuration.fields import PythonIdentifier
+from zope.configuration.fields import Tokens
+from zope.interface import Interface
+from zope.schema import Id
+from zope.schema import TextLine
+from zope.security.zcml import Permission
 
 
 class ICommonInformation(Interface):
@@ -29,20 +33,20 @@ class ICommonInformation(Interface):
     """
 
     name = TextLine(
-        title=u"Name",
-        description=u"The name of the generated view.",
+        title="Name",
+        description="The name of the generated view.",
         required=True
     )
 
     schema = GlobalInterface(
-        title=u"Schema",
-        description=u"The schema from which the form is generated.",
+        title="Schema",
+        description="The schema from which the form is generated.",
         required=True
     )
 
     for_ = GlobalInterface(
-        title=u"Interface",
-        description=u"""
+        title="Interface",
+        description="""
         The interface this page (view) applies to.
 
         The view will be for all objects that implement this
@@ -55,26 +59,26 @@ class ICommonInformation(Interface):
     )
 
     permission = Permission(
-        title=u"Permission",
-        description=u"The permission needed to use the view.",
+        title="Permission",
+        description="The permission needed to use the view.",
         required=True
     )
 
     layer = GlobalInterface(
-        title=u"Layer",
-        description=u"The later the view is in. Default: 'default'",
+        title="Layer",
+        description="The later the view is in. Default: 'default'",
         required=False
     )
 
     template = Path(
-        title=u"Template",
-        description=u"An alternate template to use for the form.",
+        title="Template",
+        description="An alternate template to use for the form.",
         required=False
     )
 
     class_ = GlobalObject(
-        title=u"Class",
-        description=u"""
+        title="Class",
+        description="""
         A class to provide custom widget definitions or methods to be
         used by a custom template.
 
@@ -90,14 +94,14 @@ class ICommonFormInformation(ICommonInformation):
     """
 
     label = MessageID(
-        title=u"Label",
-        description=u"A label to be used as the heading for the form.",
+        title="Label",
+        description="A label to be used as the heading for the form.",
         required=False
     )
 
     menu = MenuField(
-        title=u"The browser menu to include the form in.",
-        description=u"""
+        title="The browser menu to include the form in.",
+        description="""
         Many views are included in menus. It's convenient to name the
         menu in the page directive, rather than having to give a
         separate menuItem directive.""",
@@ -105,14 +109,14 @@ class ICommonFormInformation(ICommonInformation):
     )
 
     title = MessageID(
-        title=u"Menu title",
-        description=u"The browser menu label for the form.",
+        title="Menu title",
+        description="The browser menu label for the form.",
         required=False
     )
 
     fields = Tokens(
-        title=u"Fields",
-        description=u"""
+        title="Fields",
+        description="""
         Here you can specify the names of the fields you wish to display.
         The order in this list is also the order the fields will
         be displayed in.  If this attribute is not specified, all schema fields
@@ -128,8 +132,8 @@ class ICommonAddInformation(Interface):
     """
 
     content_factory = GlobalObject(
-        title=u"Content factory",
-        description=u"""
+        title="Content factory",
+        description="""
         An object to call to create new content objects.
 
         This attribute isn't used if a class is specified that
@@ -138,14 +142,14 @@ class ICommonAddInformation(Interface):
     )
 
     content_factory_id = Id(
-        title=u"Content factory id",
-        description=u"A factory id to create new content objects",
+        title="Content factory id",
+        description="A factory id to create new content objects",
         required=False,
     )
 
     arguments = Tokens(
-        title=u"Arguments",
-        description=u"""
+        title="Arguments",
+        description="""
         A list of field names to supply as positional arguments to the
         factory.""",
         required=False,
@@ -153,8 +157,8 @@ class ICommonAddInformation(Interface):
     )
 
     keyword_arguments = Tokens(
-        title=u"Keyword arguments",
-        description=u"""
+        title="Keyword arguments",
+        description="""
         A list of field names to supply as keyword arguments to the
         factory.""",
         required=False,
@@ -162,8 +166,8 @@ class ICommonAddInformation(Interface):
     )
 
     set_before_add = Tokens(
-        title=u"Set before add",
-        description=u"""
+        title="Set before add",
+        description="""
         A list of fields to be assigned to the newly created object
         before it is added.""",
         required=False,
@@ -171,8 +175,8 @@ class ICommonAddInformation(Interface):
     )
 
     set_after_add = Tokens(
-        title=u"Set after add",
-        description=u"""
+        title="Set after add",
+        description="""
         A list of fields to be assigned to the newly created object
         after it is added.""",
         required=False,
@@ -188,8 +192,8 @@ class IFormDirective(ICommonFormInformation):
     but leaves the storing procedure to the to a method.
     """
     class_ = GlobalObject(
-        title=u"Class",
-        description=u"""
+        title="Class",
+        description="""
         A class to provide the `getData()` and `setData()` methods or
         completely custom methods to be used by a custom template.
 
@@ -214,18 +218,18 @@ class ISubeditFormDirective(ICommonInformation):
     """
 
     label = TextLine(
-        title=u"Label",
-        description=u"A label to be used as the heading for the form.",
+        title="Label",
+        description="A label to be used as the heading for the form.",
         required=False
     )
 
     fulledit_path = TextLine(
-        title=u"Path (relative URL) to the full edit form",
+        title="Path (relative URL) to the full edit form",
         required=False
     )
 
     fulledit_label = MessageID(
-        title=u"Label of the full edit form",
+        title="Label of the full edit form",
         required=False
     )
 
@@ -246,8 +250,8 @@ class IAddFormDirective(ICommonFormInformation, ICommonAddInformation):
     """
 
     description = MessageID(
-        title=u"A longer description of the add form.",
-        description=u"""
+        title="A longer description of the add form.",
+        description="""
         A UI may display this with the item or display it when the
         user requests more assistance.""",
         required=False
@@ -263,8 +267,8 @@ class ISchemaDisplayDirective(ICommonFormInformation):
     """
 
     title = MessageID(
-        title=u"The browser menu label for the edit form",
-        description=u"This attribute defaults to 'Edit'.",
+        title="The browser menu label for the edit form",
+        description="This attribute defaults to 'Edit'.",
         required=False
     )
 
@@ -283,16 +287,16 @@ class IWidgetSubdirective(Interface):
     """
 
     field = TextLine(
-        title=u"Field Name",
-        description=u"""
+        title="Field Name",
+        description="""
         The name of the field/attribute/property for which this widget will be
         used.""",
         required=True,
     )
 
     class_ = GlobalObject(
-        title=u"Widget Class",
-        description=u"""The class that will create the widget.""",
+        title="Widget Class",
+        description="""The class that will create the widget.""",
         required=False,
     )
 

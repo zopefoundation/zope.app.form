@@ -12,21 +12,19 @@
 #
 ##############################################################################
 """Tests for the ZCML Documentation Module"""
-import unittest
 import doctest
+import re
+import unittest
 
-from zope.schema.interfaces import ITextLine
 from zope.component import testing
-
-import zope.app.form.testing as ztapi
-
-from zope.app.form.browser import TextWidget
 from zope.formlib.interfaces import IInputWidget
-
-
+from zope.schema.interfaces import ITextLine
 from zope.testing import renormalizing
 
-import re
+import zope.app.form.testing as ztapi
+from zope.app.form.browser import TextWidget
+
+
 checker = renormalizing.RENormalizing([
     (re.compile("u('.*?')"), r"\1"),
     (re.compile('u(".*?")'), r"\1"),

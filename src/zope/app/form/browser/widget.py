@@ -15,18 +15,17 @@
 __docformat__ = 'restructuredtext'
 
 # BBB
-from zope.formlib.widget import (
-    quoteattr,
-    BrowserWidget,
-    SimpleInputWidget,
-    DisplayWidget,
-    UnicodeDisplayWidget,
-    renderTag,
-    renderElement,
-    escape,
-    setUp,
-    tearDown,
-)
+from zope.formlib.widget import BrowserWidget
+from zope.formlib.widget import DisplayWidget
+from zope.formlib.widget import SimpleInputWidget
+from zope.formlib.widget import UnicodeDisplayWidget
+from zope.formlib.widget import escape
+from zope.formlib.widget import quoteattr
+from zope.formlib.widget import renderElement
+from zope.formlib.widget import renderTag
+from zope.formlib.widget import setUp
+from zope.formlib.widget import tearDown
+
 
 __all__ = [
     'quoteattr',

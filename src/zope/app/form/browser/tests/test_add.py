@@ -16,33 +16,36 @@ import unittest
 
 from zope.browser.interfaces import IAdding
 from zope.component import getMultiAdapter
+from zope.component.eventtesting import PlacelessSetup as EventPlacelessSetup
 from zope.component.eventtesting import getEvents
-from zope.component.interfaces import IFactory
-from zope.interface.interfaces import IComponentLookup
 from zope.component.factory import Factory
-from zope.interface import Interface, implementer
+from zope.component.interfaces import IFactory
+from zope.component.testing import PlacelessSetup as CAPlacelessSetup
+from zope.formlib.widget import CustomWidgetFactory
+from zope.interface import Interface
+from zope.interface import implementer
+from zope.interface.interfaces import IComponentLookup
 from zope.lifecycleevent.interfaces import IObjectCreatedEvent
 from zope.lifecycleevent.interfaces import IObjectModifiedEvent
 from zope.publisher.browser import TestRequest
 from zope.publisher.interfaces.browser import IBrowserRequest
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-from zope.schema import TextLine, accessors
+from zope.schema import TextLine
+from zope.schema import accessors
 from zope.security.checker import CheckerPublic
 from zope.site.site import SiteManagerAdapter
 
-from zope.formlib.widget import CustomWidgetFactory
+import zope.app.form.testing as ztapi
 from zope.app.form.browser import TextWidget as Text
-from zope.app.form.browser.add import AddViewFactory, AddView
+from zope.app.form.browser.add import AddView
+from zope.app.form.browser.add import AddViewFactory
 from zope.app.form.browser.metaconfigure import AddFormDirective
 from zope.app.form.browser.submit import Update
-import zope.app.form.testing as ztapi
-
 # Foo needs to be imported as globals() are checked
-from zope.app.form.browser.tests.test_editview import IFoo, IBar, Foo
+from zope.app.form.browser.tests.test_editview import Foo
 from zope.app.form.browser.tests.test_editview import FooBarAdapter
-
-from zope.component.testing import PlacelessSetup as CAPlacelessSetup
-from zope.component.eventtesting import PlacelessSetup as EventPlacelessSetup
+from zope.app.form.browser.tests.test_editview import IBar
+from zope.app.form.browser.tests.test_editview import IFoo
 
 
 class PlacelessSetup(CAPlacelessSetup, EventPlacelessSetup):
@@ -52,7 +55,7 @@ class PlacelessSetup(CAPlacelessSetup, EventPlacelessSetup):
         EventPlacelessSetup.setUp(self)
 
 
-class Context(object):
+class Context:
 
     def action(self, discriminator, callable, args=(), kw={}):
         self.last_action = (discriminator, callable, args, kw)
@@ -71,7 +74,7 @@ class ITest(Interface):
 
 
 @implementer(ITest)
-class C(object):
+class C:
 
     def __init__(self, *args, **kw):
         self.args = args
@@ -81,7 +84,7 @@ class C(object):
     def setfoo(self, v): self._foo = v
 
 
-class V(object):
+class V:
     name_widget = CustomWidgetFactory(Text)
     first_widget = CustomWidgetFactory(Text)
     last_widget = CustomWidgetFactory(Text)
@@ -92,27 +95,27 @@ class V(object):
     extra2_widget = CustomWidgetFactory(Text)
 
 
-class FooV(object):
+class FooV:
     bar_widget = CustomWidgetFactory(Text)
 
 
-class SampleData(object):
+class SampleData:
 
-    name = u"foo"
-    first = u"bar"
-    last = u"baz"
-    email = u"baz@dot.com"
-    address = u"aa"
-    getfoo = u"foo"
-    extra1 = u"extra1"
-    extra2 = u"extra2"
+    name = "foo"
+    first = "bar"
+    last = "baz"
+    email = "baz@dot.com"
+    address = "aa"
+    getfoo = "foo"
+    extra1 = "extra1"
+    extra2 = "extra2"
 
 
 class Test(PlacelessSetup, unittest.TestCase):
 
     def setUp(self):
         self._context = Context()
-        super(Test, self).setUp()
+        super().setUp()
         ztapi.provideAdapter(IFoo, IBar, FooBarAdapter)
 
     def _invoke_add(self, schema=ITest, name="addthis",
@@ -214,8 +217,6 @@ class Test(PlacelessSetup, unittest.TestCase):
         self.assertEqual(" ".join(set_after_add),
                          "extra1 name address extra2")
 
-        return args
-
     def test_add_content_factory_id(self, args=None):
         self._invoke_add(content_factory='C')
         (descriminator, callable, args, kw) = self._context.last_action
@@ -252,12 +253,10 @@ class Test(PlacelessSetup, unittest.TestCase):
         self.assertEqual(" ".join(set_after_add),
                          "extra1 name address extra2")
 
-        return args
-
     def test_create(self):
 
         @implementer(IAdding)
-        class Adding(object):
+        class Adding:
 
             def __init__(self, test):
                 self.test = test
@@ -290,7 +289,7 @@ class Test(PlacelessSetup, unittest.TestCase):
     def test_create_content_factory_id(self):
 
         @implementer(IAdding)
-        class Adding(object):
+        class Adding:
 
             def __init__(self, test):
                 self.test = test
@@ -327,7 +326,7 @@ class Test(PlacelessSetup, unittest.TestCase):
     def test_createAndAdd(self):
 
         @implementer(IAdding)
-        class Adding(object):
+        class Adding:
 
             def __init__(self, test):
                 self.test = test
@@ -364,7 +363,7 @@ class Test(PlacelessSetup, unittest.TestCase):
     def test_createAndAdd_w_adapter(self):
 
         @implementer(IAdding)
-        class Adding(object):
+        class Adding:
 
             def __init__(self, test):
                 self.test = test
@@ -395,7 +394,7 @@ class Test(PlacelessSetup, unittest.TestCase):
     def test_hooks(self):
 
         @implementer(IAdding)
-        class Adding(object):
+        class Adding:
             pass
 
         adding = Adding()
@@ -404,10 +403,10 @@ class Test(PlacelessSetup, unittest.TestCase):
         AddViewFactory(*args)
         request = TestRequest()
 
-        request.form.update(dict([
-            ("field.%s" % k, v)
+        request.form.update({
+            "field.%s" % k: v
             for (k, v) in dict(SampleData.__dict__).items()
-        ]))
+        })
         request.form[Update] = ''
         view = getMultiAdapter((adding, request), name='addthis')
 
@@ -453,4 +452,4 @@ class Test(PlacelessSetup, unittest.TestCase):
 
 
 def test_suite():
-    return unittest.makeSuite(Test)
+    return unittest.defaultTestLoader.loadTestsFromTestCase(Test)

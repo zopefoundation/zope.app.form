@@ -13,12 +13,12 @@
 ##############################################################################
 """Browser widgets for items"""
 # BBB implementation moved to zope.formlib.boolwidgets
-from zope.formlib.boolwidgets import (
-    CheckBoxWidget,
-    BooleanRadioWidget,
-    BooleanSelectWidget,
-    BooleanDropdownWidget,
-    BooleanDisplayWidget)
+from zope.formlib.boolwidgets import BooleanDisplayWidget
+from zope.formlib.boolwidgets import BooleanDropdownWidget
+from zope.formlib.boolwidgets import BooleanRadioWidget
+from zope.formlib.boolwidgets import BooleanSelectWidget
+from zope.formlib.boolwidgets import CheckBoxWidget
+
 
 __all__ = [
     'CheckBoxWidget',

@@ -17,22 +17,26 @@ __docformat__ = 'restructuredtext'
 import sys
 
 import zope.component
+from zope.browserpage import ViewPageTemplateFile
+from zope.browserpage.simpleviewclass import SimpleViewClass
 from zope.component.interfaces import IFactory
 from zope.event import notify
+from zope.formlib.interfaces import IInputWidget
+from zope.formlib.interfaces import WidgetsError
 from zope.interface import Interface
-from zope.schema.interfaces import ValidationError
-from zope.security.checker import defineChecker, NamesChecker
-from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-from zope.lifecycleevent import ObjectCreatedEvent, ObjectModifiedEvent
 from zope.lifecycleevent import Attributes
+from zope.lifecycleevent import ObjectCreatedEvent
+from zope.lifecycleevent import ObjectModifiedEvent
+from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+from zope.schema.interfaces import ValidationError
+from zope.security.checker import NamesChecker
+from zope.security.checker import defineChecker
 
-from zope.app.form.utility import setUpWidgets, getWidgetsData
-from zope.formlib.interfaces import IInputWidget, WidgetsError
-from zope.app.form.browser.i18n import _
-from zope.browserpage.simpleviewclass import SimpleViewClass
-from zope.browserpage import ViewPageTemplateFile
 from zope.app.form.browser.editview import EditView
+from zope.app.form.browser.i18n import _
 from zope.app.form.browser.submit import Update
+from zope.app.form.utility import getWidgetsData
+from zope.app.form.utility import setUpWidgets
 
 
 class AddView(EditView):

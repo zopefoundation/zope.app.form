@@ -17,29 +17,31 @@ __docformat__ = 'restructuredtext'
 import os
 
 import zope.component
-from zope.security.checker import CheckerPublic
-from zope.interface import implementedBy
+from zope.browser.interfaces import IAdding
+from zope.browsermenu.metaconfigure import menuItemDirective
 from zope.configuration.exceptions import ConfigurationError
 from zope.configuration.xmlconfig import ZopeXMLConfigurationError
-
-from zope.browser.interfaces import IAdding
-from zope.schema import getFieldNamesInOrder
+from zope.formlib.interfaces import IDisplayWidget
+from zope.formlib.interfaces import IInputWidget
+from zope.formlib.interfaces import IWidgetFactory
+from zope.formlib.widget import CustomWidgetFactory
+from zope.interface import implementedBy
 from zope.publisher.interfaces.browser import IBrowserRequest
 from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-from zope.browsermenu.metaconfigure import menuItemDirective
+from zope.schema import getFieldNamesInOrder
+from zope.security.checker import CheckerPublic
 
-from zope.formlib.widget import CustomWidgetFactory
-from zope.app.form.browser.i18n import _
-from zope.formlib.interfaces import IInputWidget, IDisplayWidget
-from zope.formlib.interfaces import IWidgetFactory
-
-from zope.app.form.browser.add import AddView, AddViewFactory
-from zope.app.form.browser.editview import EditView, EditViewFactory
+from zope.app.form.browser.add import AddView
+from zope.app.form.browser.add import AddViewFactory
+from zope.app.form.browser.editview import EditView
+from zope.app.form.browser.editview import EditViewFactory
 from zope.app.form.browser.formview import FormView
-from zope.app.form.browser.schemadisplay import DisplayView, DisplayViewFactory
+from zope.app.form.browser.i18n import _
+from zope.app.form.browser.schemadisplay import DisplayView
+from zope.app.form.browser.schemadisplay import DisplayViewFactory
 
 
-class BaseFormDirective(object):
+class BaseFormDirective:
 
     # to be overriden by the subclasses
     view = None
@@ -284,7 +286,7 @@ class FormDirective(EditFormDirective):
     view = FormView
 
     def __init__(self, _context, **kwargs):
-        super(FormDirective, self).__init__(_context, **kwargs)
+        super().__init__(_context, **kwargs)
         attrs = self.class_.__dict__.keys()
         if 'template' not in kwargs.keys() and 'update' not in attrs and \
                 ('getData' not in attrs or 'setData' not in attrs):

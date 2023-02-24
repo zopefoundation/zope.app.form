@@ -15,6 +15,7 @@
 # BBB implementation moved to zope.formlib.exception
 from zope.formlib.exception import WidgetInputErrorView
 
+
 __all__ = [
     'WidgetInputErrorView',
 ]

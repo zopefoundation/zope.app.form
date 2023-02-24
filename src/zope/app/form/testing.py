@@ -15,11 +15,13 @@
 
 __docformat__ = "reStructuredText"
 
-from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-import zope.app.form
 import zope.app.wsgi.testlayer
 import zope.component
 import zope.interface
+from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+
+import zope.app.form
+
 
 AppFormLayer = zope.app.wsgi.testlayer.BrowserLayer(zope.app.form)
 

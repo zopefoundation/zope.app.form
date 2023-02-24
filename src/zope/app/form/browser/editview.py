@@ -15,24 +15,26 @@
 __docformat__ = 'restructuredtext'
 
 from datetime import datetime
+
 import transaction
-
 import zope.component
-from zope.interface import Interface
-from zope.schema import getFieldNamesInOrder
-from zope.publisher.interfaces.browser import IDefaultBrowserLayer
-from zope.publisher.browser import BrowserView
-from zope.security.checker import defineChecker, NamesChecker
-from zope.event import notify
-from zope.lifecycleevent import ObjectModifiedEvent
-from zope.lifecycleevent import Attributes
-
 from zope.browserpage import ViewPageTemplateFile
 from zope.browserpage.simpleviewclass import SimpleViewClass
+from zope.event import notify
 from zope.formlib.interfaces import WidgetsError
-from zope.app.form.utility import setUpEditWidgets, applyWidgetsChanges
+from zope.interface import Interface
+from zope.lifecycleevent import Attributes
+from zope.lifecycleevent import ObjectModifiedEvent
+from zope.publisher.browser import BrowserView
+from zope.publisher.interfaces.browser import IDefaultBrowserLayer
+from zope.schema import getFieldNamesInOrder
+from zope.security.checker import NamesChecker
+from zope.security.checker import defineChecker
+
 from zope.app.form.browser.i18n import _
 from zope.app.form.browser.submit import Update
+from zope.app.form.utility import applyWidgetsChanges
+from zope.app.form.utility import setUpEditWidgets
 
 
 class EditView(BrowserView):
@@ -56,7 +58,7 @@ class EditView(BrowserView):
     generated_form = ViewPageTemplateFile('edit.pt')
 
     def __init__(self, context, request):
-        super(EditView, self).__init__(context, request)
+        super().__init__(context, request)
         self._setUpWidgets()
 
     def _setUpWidgets(self):

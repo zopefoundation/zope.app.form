@@ -18,17 +18,17 @@ This has been moved to zope.formlib.interfaces.
 
 
 # this moved to zope.formlib.interfaces
-from zope.formlib.interfaces import (IWidgetInputError,
-                                     WidgetInputError,
-                                     MissingInputError,
-                                     ConversionError,
-                                     InputErrors,
-                                     ErrorContainer,
-                                     WidgetsError,
-                                     IWidget,
-                                     IInputWidget,
-                                     IDisplayWidget,
-                                     IWidgetFactory)
+from zope.formlib.interfaces import ConversionError
+from zope.formlib.interfaces import ErrorContainer
+from zope.formlib.interfaces import IDisplayWidget
+from zope.formlib.interfaces import IInputWidget
+from zope.formlib.interfaces import InputErrors
+from zope.formlib.interfaces import IWidget
+from zope.formlib.interfaces import IWidgetFactory
+from zope.formlib.interfaces import IWidgetInputError
+from zope.formlib.interfaces import MissingInputError
+from zope.formlib.interfaces import WidgetInputError
+from zope.formlib.interfaces import WidgetsError
 
 
 __all__ = [

@@ -13,16 +13,21 @@
 ##############################################################################
 """Test form i18n"""
 
+import doctest
 import re
 import unittest
-import doctest
-from persistent import Persistent
-from zope.testing import renormalizing
-from zope.interface import Interface, implementer
-from zope.schema import TextLine, Text, Int, List
-from zope.i18nmessageid import MessageFactory
 
+from persistent import Persistent
 from zope.app.wsgi.testlayer import http
+from zope.i18nmessageid import MessageFactory
+from zope.interface import Interface
+from zope.interface import implementer
+from zope.schema import Int
+from zope.schema import List
+from zope.schema import Text
+from zope.schema import TextLine
+from zope.testing import renormalizing
+
 from zope.app.form.testing import AppFormLayer
 
 
@@ -34,28 +39,28 @@ __docformat__ = "reStructuredText"
 class IFieldContent(Interface):
 
     title = TextLine(
-        title=_(u"Title"),
-        description=_(u"A short description of the event."),
-        default=u"",
+        title=_("Title"),
+        description=_("A short description of the event."),
+        default="",
         required=True
     )
 
     description = Text(
-        title=_(u"Description"),
-        description=_(u"A long description of the event."),
-        default=u"",
+        title=_("Description"),
+        description=_("A long description of the event."),
+        default="",
         required=False
     )
 
     somenumber = Int(
-        title=_(u"Some number"),
+        title=_("Some number"),
         default=0,
         required=False
     )
 
     somelist = List(
-        title=_(u"Some List"),
-        value_type=TextLine(title=_(u"Some item")),
+        title=_("Some List"),
+        value_type=TextLine(title=_("Some item")),
         default=[],
         required=False
     )

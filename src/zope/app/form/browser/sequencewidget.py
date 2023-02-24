@@ -13,12 +13,11 @@
 ##############################################################################
 """Browser widgets for sequences"""
 # BBB implementation moved to zope.formlib.sequencewidget
-from zope.formlib.sequencewidget import (
-    ListSequenceWidget,
-    SequenceDisplayWidget,
-    SequenceWidget,
-    TupleSequenceWidget,
-)
+from zope.formlib.sequencewidget import ListSequenceWidget
+from zope.formlib.sequencewidget import SequenceDisplayWidget
+from zope.formlib.sequencewidget import SequenceWidget
+from zope.formlib.sequencewidget import TupleSequenceWidget
+
 
 __all__ = [
     'ListSequenceWidget',

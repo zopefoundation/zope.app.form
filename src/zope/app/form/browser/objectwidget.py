@@ -14,9 +14,9 @@
 """Browser widgets for text-like data"""
 # implementation moved to zope.formlib.objectwidget
 # BBB
-from zope.formlib.objectwidget import (
-    ObjectWidgetView,
-    ObjectWidget)
+from zope.formlib.objectwidget import ObjectWidget
+from zope.formlib.objectwidget import ObjectWidgetView
+
 
 __all__ = [
     'ObjectWidgetView',
