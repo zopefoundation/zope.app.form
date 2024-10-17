@@ -5,7 +5,8 @@ CHANGES
 6.1 (unreleased)
 ================
 
-- Nothing changed yet.
+- Make tests compatible with ``multipart 1.x``
+  (`#13 <https://github.com/zopefoundation/zope.app.form/issues/13>`_).
 
 
 6.0 (2023-02-24)

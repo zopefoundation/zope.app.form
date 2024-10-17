@@ -85,6 +85,7 @@ def test_suite():
             query_str = query_str.lstrip()
             if not isinstance(query_str, bytes):
                 query_str = query_str.encode("ascii")
+            query_str = b"\r\n".join(query_str.splitlines())
             response = http(wsgi_app, query_str, *args, **kwargs)
             return response
 
