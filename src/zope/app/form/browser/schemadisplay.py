@@ -55,7 +55,7 @@ class DisplayView(BrowserView):
             widget.setPrefix(prefix)
 
     def widgets(self):
-        return [getattr(self, name+'_widget')
+        return [getattr(self, name + '_widget')
                 for name in self.fieldNames]
 
 

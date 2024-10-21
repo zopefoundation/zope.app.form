@@ -28,7 +28,7 @@ def registerEditForm(schema, widgets=()):
     for field in widgets:  # pragma: no cover
         widgetsXml.append('<widget field="%s"' % field)
         for attr in widgets[field]:
-            widgetsXml.append(' {}="{}"'.format(attr, widgets[field][attr]))
+            widgetsXml.append(f' {attr}="{widgets[field][attr]}"')
         widgetsXml.append(' />')
     xmlconfig.string("""
         <configure xmlns="http://namespaces.zope.org/browser">
@@ -44,7 +44,7 @@ def registerEditForm(schema, widgets=()):
 
 
 def defineSecurity(class_, schema):
-    class_ = '{}.{}'.format(class_.__module__, class_.__name__)
+    class_ = f'{class_.__module__}.{class_.__name__}'
     schema = schema.__identifier__
     xmlconfig.string("""
         <configure xmlns="http://namespaces.zope.org/zope">

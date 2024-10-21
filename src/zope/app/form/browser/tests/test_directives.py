@@ -230,7 +230,7 @@ class Test(PlacelessSetup, unittest.TestCase):
 
         view = component.queryMultiAdapter((ob, request), name='add.html')
         self.assertTrue(hasattr(view, 'text_widget'))
-        self.assertTrue(isinstance(view.text_widget, SomeWidget))
+        self.assertIsInstance(view.text_widget, SomeWidget)
         self.assertEqual(view.text_widget.extra, 'foo')
         self.assertEqual(view.text_widget.displayWidth, 30)
 
@@ -267,7 +267,7 @@ class Test(PlacelessSetup, unittest.TestCase):
 
         view = component.queryMultiAdapter((ob, request), name='edit.html')
         self.assertTrue(hasattr(view, 'text_widget'))
-        self.assertTrue(isinstance(view.text_widget, SomeWidget))
+        self.assertIsInstance(view.text_widget, SomeWidget)
         self.assertEqual(view.text_widget.extra, 'foo')
         self.assertEqual(view.text_widget.displayWidth, 30)
 
@@ -303,7 +303,7 @@ class Test(PlacelessSetup, unittest.TestCase):
 
         view = component.queryMultiAdapter((ob, request), name='view.html')
         self.assertTrue(hasattr(view, 'text_widget'))
-        self.assertTrue(isinstance(view.text_widget, SomeWidget))
+        self.assertIsInstance(view.text_widget, SomeWidget)
         self.assertEqual(view.text_widget.extra, 'foo')
         self.assertEqual(view.text_widget.displayWidth, 30)
 

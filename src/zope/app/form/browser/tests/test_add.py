@@ -282,7 +282,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         view = getMultiAdapter((adding, request), name='addthis')
         content = view.create('a', 0, abc='def')
 
-        self.assertTrue(isinstance(content, C))
+        self.assertIsInstance(content, C)
         self.assertEqual(content.args, ('a', 0))
         self.assertEqual(content.kw, {'abc': 'def'})
 
@@ -319,7 +319,7 @@ class Test(PlacelessSetup, unittest.TestCase):
         view = getMultiAdapter((adding, request), name='addthis')
         content = view.create('a', 0, abc='def')
 
-        self.assertTrue(isinstance(content, C))
+        self.assertIsInstance(content, C)
         self.assertEqual(content.args, ('a', 0))
         self.assertEqual(content.kw, {'abc': 'def'})
 
