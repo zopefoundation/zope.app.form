@@ -94,7 +94,7 @@ class BaseFormDirective:
         else:
             factory = CustomWidgetFactory(class_, **attrs)
 
-        self._widgets[field+'_widget'] = factory
+        self._widgets[field + '_widget'] = factory
 
     def _processWidgets(self):
         if self._widgets:
@@ -239,9 +239,9 @@ class AddFormDirective(BaseFormDirective):
         self._context.action(
             discriminator=self._discriminator(),
             callable=AddViewFactory,
-            args=self._args()+(self.content_factory, self.arguments,
-                               self.keyword_arguments,
-                               self.set_before_add, self.set_after_add),
+            args=self._args() + (self.content_factory, self.arguments,
+                                 self.keyword_arguments,
+                                 self.set_before_add, self.set_after_add),
         )
 
 
@@ -309,7 +309,7 @@ class SubeditFormDirective(EditFormDirectiveBase):
         self._context.action(
             discriminator=self._discriminator(),
             callable=EditViewFactory,
-            args=self._args()+(self.fulledit_path, self.fulledit_label),
+            args=self._args() + (self.fulledit_path, self.fulledit_label),
         )
 
 
@@ -324,5 +324,5 @@ class SchemaDisplayDirective(EditFormDirective):
         self._context.action(
             discriminator=self._discriminator(),
             callable=DisplayViewFactory,
-            args=self._args()+(self.menu,)
+            args=self._args() + (self.menu,)
         )
