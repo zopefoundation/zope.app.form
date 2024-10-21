@@ -38,7 +38,7 @@ tests_require = [
     'zope.app.appsetup',
     'zope.testing',
     'zope.testrunner',
-    'zope.app.wsgi >= 4.1.0',
+    'zope.app.wsgi >= 5.2',
     'webtest',
 ]
 

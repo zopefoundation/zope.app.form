@@ -5,7 +5,7 @@ CHANGES
 6.1 (unreleased)
 ================
 
-- Nothing changed yet.
+- Update tests to run with ``multipart >= 1``.
 
 
 6.0 (2023-02-24)
