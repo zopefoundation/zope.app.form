@@ -14,7 +14,8 @@
 """Edit View Classes"""
 __docformat__ = 'restructuredtext'
 
-from datetime import datetime
+import datetime
+import sys
 
 import transaction
 import zope.component
@@ -35,6 +36,9 @@ from zope.app.form.browser.i18n import _
 from zope.app.form.browser.submit import Update
 from zope.app.form.utility import applyWidgetsChanges
 from zope.app.form.utility import setUpEditWidgets
+
+
+PY310 = sys.version_info < (3, 11)
 
 
 class EditView(BrowserView):
@@ -112,9 +116,14 @@ class EditView(BrowserView):
                     self.changed()
                     formatter = self.request.locale.dates.getFormatter(
                         'dateTime', 'medium')
+                    if PY310:
+                        now = datetime.datetime.now(datetime.timezone.utc)
+                    else:
+                        now = datetime.datetime.now(datetime.UTC)
+
                     status = _("Updated on ${date_time}",
                                mapping={'date_time':
-                                        formatter.format(datetime.utcnow())})
+                                        formatter.format(now)})
 
         self.update_status = status
         return status
