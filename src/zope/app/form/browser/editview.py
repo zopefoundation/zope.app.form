@@ -38,7 +38,7 @@ from zope.app.form.utility import applyWidgetsChanges
 from zope.app.form.utility import setUpEditWidgets
 
 
-PY310 = sys.version_info < (3, 11)
+PY310_OR_OLDER = sys.version_info < (3, 11)
 
 
 class EditView(BrowserView):
@@ -116,7 +116,7 @@ class EditView(BrowserView):
                     self.changed()
                     formatter = self.request.locale.dates.getFormatter(
                         'dateTime', 'medium')
-                    if PY310:
+                    if PY310_OR_OLDER:
                         now = datetime.datetime.now(datetime.timezone.utc)
                     else:
                         now = datetime.datetime.now(datetime.UTC)
