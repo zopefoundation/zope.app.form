@@ -18,6 +18,7 @@ import re
 import unittest
 
 from persistent import Persistent
+from zope.app.wsgi.testlayer import encodeMultipartFormdata
 from zope.app.wsgi.testlayer import http
 from zope.i18nmessageid import MessageFactory
 from zope.interface import Interface
@@ -81,14 +82,10 @@ def test_suite():
         wsgi_app = AppFormLayer.make_wsgi_app()
 
         def _http(query_str, *args, **kwargs):
-            # Strip leading \n
-            query_str = query_str.lstrip()
-            if not isinstance(query_str, bytes):
-                query_str = query_str.encode("ascii")
-            response = http(wsgi_app, query_str, *args, **kwargs)
-            return response
+            return http(wsgi_app, query_str, *args, **kwargs)
 
         test.globs['http'] = _http
+        test.globs['encodeMultipartFormdata'] = encodeMultipartFormdata
 
     i18n = doctest.DocFileSuite('../i18n.rst',
                                 setUp=setUp,
