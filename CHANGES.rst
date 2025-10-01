@@ -5,6 +5,8 @@ CHANGES
 6.2 (unreleased)
 ================
 
+- Drop support for Python 3.8.
+
 - Update tests to run with ``multipart >= 1.1+``.
 
 
