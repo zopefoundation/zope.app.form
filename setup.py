@@ -20,7 +20,6 @@
 """
 import os
 
-from setuptools import find_packages
 from setuptools import setup
 
 
@@ -37,14 +36,14 @@ tests_require = [
     'zope.traversing',
     'zope.app.appsetup',
     'zope.testing',
-    'zope.testrunner',
+    'zope.testrunner >= 6.4',
     'zope.app.wsgi >= 5.3',
     'webtest',
 ]
 
 setup(name='zope.app.form',
-      version='6.2.dev0',
-      author='Zope Corporation and Contributors',
+      version='7.0.dev0',
+      author='Zope Foundation and Contributors',
       author_email='zope-dev@zope.dev',
       description='The Original Zope 3 Form Framework',
       long_description=(
@@ -62,7 +61,6 @@ setup(name='zope.app.form',
           'License :: OSI Approved :: Zope Public License',
           'Programming Language :: Python',
           'Programming Language :: Python :: 3',
-          'Programming Language :: Python :: 3.8',
           'Programming Language :: Python :: 3.9',
           'Programming Language :: Python :: 3.10',
           'Programming Language :: Python :: 3.11',
@@ -76,11 +74,8 @@ setup(name='zope.app.form',
           'Framework :: Zope :: 3',
       ],
       url='https://github.com/zopefoundation/zope.app.form',
-      license='ZPL 2.1',
-      packages=find_packages('src'),
-      package_dir={'': 'src'},
-      namespace_packages=['zope', 'zope.app'],
-      python_requires='>=3.8',
+      license='ZPL-2.1',
+      python_requires='>=3.9',
       extras_require={
           'test': tests_require
       },

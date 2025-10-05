@@ -2,8 +2,12 @@
 CHANGES
 =======
 
-6.2 (unreleased)
+7.0 (unreleased)
 ================
+
+- Replace ``pkg_resources`` namespace with PEP 420 native namespace.
+
+- Drop support for Python 3.8.
 
 - Update tests to run with ``multipart >= 1.1+``.
 
