@@ -117,7 +117,7 @@ class EditView(BrowserView):
                     formatter = self.request.locale.dates.getFormatter(
                         'dateTime', 'medium')
                     if PY310_OR_OLDER:
-                        now = datetime.datetime.now(datetime.timezone.utc)
+                        now = datetime.datetime.now(datetime.UTC)
                     else:
                         now = datetime.datetime.now(datetime.UTC)
 

@@ -19,7 +19,7 @@
 
         <p tal:define="status view/update"
            tal:condition="status"
-           tal:content="status" 
+           tal:content="status"
            i18n:translate=""/>
 
         <p tal:condition="view/errors" i18n:translate="">
@@ -50,9 +50,9 @@
 
       <div class="row">
         <div class="controls">
-          <input type="submit" value="Refresh" 
+          <input type="submit" value="Refresh"
               i18n:attributes="value refresh-button" />
-          <input type="submit" name="UPDATE_SUBMIT" value="Change" 
+          <input type="submit" name="UPDATE_SUBMIT" value="Change"
               i18n:attributes="value submit-button"/>
         </div>
       </div>

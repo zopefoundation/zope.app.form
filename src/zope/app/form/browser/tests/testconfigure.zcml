@@ -6,7 +6,7 @@
 
   <!-- Test view for folders -->
   <browser:pages
-      permission="zope.View" 
+      permission="zope.View"
       for="zope.site.interfaces.IFolder"
       class=".SchemaTestObject.EditFactory">
       <browser:page name="testSchemaFormView.html" attribute="form" />
