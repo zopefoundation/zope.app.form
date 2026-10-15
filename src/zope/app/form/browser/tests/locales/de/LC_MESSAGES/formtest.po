@@ -48,4 +48,3 @@ msgstr "Felderinhalt bearbeiten"
 
 msgid "Add Field Content"
 msgstr "Felderinhalt hinzufügen"
-

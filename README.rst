@@ -11,4 +11,3 @@ advanced alternatives are implemented in ``zope.formlib`` and
 ``z3c.form``. The widgets that were defined in here were moved to
 ``zope.formlib``. Version 4.0 and newer are maintained for backwards
 compatibility reasons only.
-
